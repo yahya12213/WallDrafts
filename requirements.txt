@@ -14,6 +14,7 @@ h11==0.16.0
 idna==3.11
 Js2Py==0.74
 lxml==6.0.2
+dj-database-url
 numpy==2.3.5
 openpyxl==3.1.5
 outcome==1.3.0.post0

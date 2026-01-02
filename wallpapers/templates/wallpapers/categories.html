@@ -21,16 +21,25 @@
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": "https://walldrafts.com/"
+            "item": "https://www.walldrafts.com"
         },
         {
             "@type": "ListItem",
             "position": 2,
             "name": "Categories",
-            "item": "https://walldrafts.com/categories/"
+            "item": "https://www.walldrafts.com/categories/"
         }
     ]
 }
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4TGJJ5X73Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4TGJJ5X73Y');
 </script>
 {% endblock %}
 
@@ -47,7 +56,7 @@
         background: linear-gradient(135deg, rgba(19, 157, 248, 0.1) 0%, rgba(86, 73, 226, 0.1) 100%);
         border-radius: var(--radius-xl);
     }
-    
+
     .categories-hero-content {
         position: relative;
         z-index: 2;
@@ -57,7 +66,7 @@
         padding: 2rem;
         width: 100%;
     }
-    
+
     .categories-title {
         font-size: clamp(2rem, 4vw, 3rem);
         font-weight: 700;
@@ -65,7 +74,7 @@
         line-height: 1.2;
         color: var(--text-color);
     }
-    
+
     .categories-subtitle {
         font-size: clamp(1rem, 2vw, 1.25rem);
         color: var(--text-secondary);
@@ -75,7 +84,7 @@
         margin-right: auto;
         line-height: 1.6;
     }
-    
+
     /* ===== CATEGORIES STATS ===== */
     .categories-stats {
         display: grid;
@@ -83,7 +92,7 @@
         gap: 1.5rem;
         margin-bottom: 3rem;
     }
-    
+
     .stat-card {
         background: var(--surface-color);
         padding: 2rem;
@@ -93,32 +102,32 @@
         transition: var(--transition);
         border: 1px solid var(--border-color);
     }
-    
+
     .stat-card:hover {
         transform: translateY(-5px);
         box-shadow: var(--shadow-lg);
         border-color: var(--primary-color);
     }
-    
+
     .stat-icon {
         font-size: 2.5rem;
         margin-bottom: 1rem;
         color: var(--primary-color);
     }
-    
+
     .stat-number {
         font-size: 2.5rem;
         font-weight: 700;
         color: var(--text-color);
         margin-bottom: 0.5rem;
     }
-    
+
     .stat-label {
         color: var(--text-secondary);
         font-size: 0.95rem;
         font-weight: 500;
     }
-    
+
     /* ===== CATEGORIES GRID ===== */
     .categories-grid {
         display: grid;
@@ -126,7 +135,7 @@
         gap: 2rem;
         margin-top: 2rem;
     }
-    
+
     .category-card {
         position: relative;
         height: 300px;
@@ -138,24 +147,24 @@
         display: block;
         border: 1px solid var(--border-color);
     }
-    
+
     .category-card:hover {
         transform: translateY(-10px);
         box-shadow: var(--shadow-xl);
         border-color: var(--primary-color);
     }
-    
+
     .category-cover {
         width: 100%;
         height: 100%;
         object-fit: cover;
         transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    
+
     .category-card:hover .category-cover {
         transform: scale(1.1);
     }
-    
+
     .category-overlay {
         position: absolute;
         bottom: 0;
@@ -165,14 +174,14 @@
         padding: 1.5rem;
         color: white;
     }
-    
+
     .category-title {
         font-size: 1.5rem;
         font-weight: 600;
         margin-bottom: 0.5rem;
         color: white;
     }
-    
+
     .category-info {
         display: flex;
         justify-content: space-between;
@@ -180,7 +189,7 @@
         opacity: 0.9;
         font-size: 0.95rem;
     }
-    
+
     .category-count {
         background: var(--primary-color);
         padding: 0.375rem 0.875rem;
@@ -189,7 +198,7 @@
         font-size: 0.875rem;
         color: white;
     }
-    
+
     /* Fallback for categories without cover */
     .category-fallback {
         height: 100%;
@@ -202,76 +211,76 @@
         padding: 2rem;
         text-align: center;
     }
-    
+
     .category-fallback-icon {
         font-size: 3rem;
         margin-bottom: 1.5rem;
         color: var(--primary-color);
     }
-    
+
     .category-fallback-title {
         font-size: 1.5rem;
         font-weight: 600;
         margin-bottom: 0.5rem;
         color: var(--text-color);
     }
-    
+
     .category-fallback-count {
         color: var(--text-secondary);
         font-size: 0.95rem;
     }
-    
+
     /* ===== RESPONSIVE DESIGN ===== */
     @media (max-width: 768px) {
         .categories-hero {
             height: 30vh;
             margin-bottom: 2rem;
         }
-        
+
         .categories-hero-content {
             padding: 1.5rem;
         }
-        
+
         .categories-grid {
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 1.5rem;
         }
-        
+
         .category-card {
             height: 280px;
         }
-        
+
         .categories-stats {
             grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
         }
-        
+
         .stat-card {
             padding: 1.5rem;
         }
-        
+
         .stat-number {
             font-size: 2rem;
         }
     }
-    
+
     @media (max-width: 480px) {
         .categories-grid {
             grid-template-columns: 1fr;
         }
-        
+
         .categories-stats {
             grid-template-columns: 1fr;
         }
-        
+
         .categories-hero {
             height: 25vh;
         }
-        
+
         .categories-title {
             font-size: 1.75rem;
         }
-        
+
         .categories-subtitle {
             font-size: 1rem;
         }
@@ -286,7 +295,7 @@
         <div class="categories-hero-content">
             <h1 id="categories-main-heading" class="categories-title">Browse Wallpaper Categories</h1>
             <p class="categories-subtitle">
-                Explore our collection of HD wallpaper categories. 
+                Explore our collection of HD wallpaper categories.
                 Find the perfect background for your desktop computer.
             </p>
         </div>
@@ -301,7 +310,7 @@
             <div class="stat-number">{{ categories.count|default:"0" }}</div>
             <div class="stat-label">Total Categories</div>
         </div>
-        
+
         <div class="stat-card" aria-label="Total wallpapers">
             <div class="stat-icon">
                 <i class="fas fa-image" aria-hidden="true"></i>
@@ -309,7 +318,7 @@
             <div class="stat-number">{{ total_wallpapers|default:"0" }}</div>
             <div class="stat-label">Total Wallpapers</div>
         </div>
-        
+
         <div class="stat-card" aria-label="Total downloads">
             <div class="stat-icon">
                 <i class="fas fa-download" aria-hidden="true"></i>
@@ -317,7 +326,7 @@
             <div class="stat-number">10M+</div>
             <div class="stat-label">Downloads</div>
         </div>
-        
+
         <div class="stat-card" aria-label="Total users">
             <div class="stat-icon">
                 <i class="fas fa-users" aria-hidden="true"></i>
@@ -330,10 +339,10 @@
     <!-- Categories Grid -->
     <section class="categories-grid" aria-label="Wallpaper categories">
         {% for category in categories %}
-        <a href="{% url 'wallpapers:category_detail' category.slug %}" class="category-card" 
+        <a href="{% url 'wallpapers:category_detail' category.slug %}" class="category-card"
            aria-label="Browse {{ category.name }} wallpapers ({{ category.total_wallpapers|default:0 }} wallpapers)">
             {% if category.cover_image_url %}
-            <img src="{{ category.cover_image_url }}" alt="{{ category.name }} wallpaper collection" 
+            <img src="{{ category.cover_image_url }}" alt="{{ category.name }} wallpaper collection"
                  class="category-cover" loading="lazy" width="280" height="300">
             {% else %}
             <div class="category-fallback">
@@ -362,7 +371,7 @@
                 <div class="category-fallback-count">{{ category.total_wallpapers|default:0 }} wallpapers</div>
             </div>
             {% endif %}
-            
+
             <div class="category-overlay">
                 <h3 class="category-title">{{ category.name }}</h3>
                 <div class="category-info">
@@ -392,7 +401,7 @@
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         };
-        
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -401,7 +410,7 @@
                 }
             });
         }, observerOptions);
-        
+
         // Apply animation to all category cards
         document.querySelectorAll('.category-card').forEach(card => {
             card.style.opacity = '0';

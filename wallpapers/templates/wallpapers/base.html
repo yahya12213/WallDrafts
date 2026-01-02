@@ -5,12 +5,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
+
     <!-- Primary Meta Tags -->
     <meta name="description" content="{% block meta_description %}Download thousands of free HD wallpapers for desktop. Curated collection of beautiful backgrounds updated daily. No registration required.{% endblock %}">
     <meta name="keywords" content="{% block meta_keywords %}free wallpapers, HD wallpapers, desktop backgrounds, wallpaper download, 4K wallpapers, background images, computer wallpapers, PC backgrounds{% endblock %}">
     <meta name="author" content="WallDrafts">
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
@@ -19,68 +20,68 @@
     <meta property="og:image" content="{% block og_image %}{% static 'images/logo.png' %}{% endblock %}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    
+
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="{{ request.build_absolute_uri }}">
     <meta name="twitter:title" content="{% block twitter_title %}WallDrafts - Free HD Wallpapers{% endblock %}">
     <meta name="twitter:description" content="{% block twitter_description %}Free HD wallpapers for desktop. No registration required. Download now!{% endblock %}">
     <meta name="twitter:image" content="{% block twitter_image %}{% static 'images/logo.png' %}{% endblock %}">
-    
+
     <!-- Robots -->
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-    
+
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ request.build_absolute_uri }}">
-    
+
     <!-- Structured Data / Schema.org -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "WallDrafts",
-        "url": "https://walldrafts.com",
+        "url": "https://www.walldrafts.com",
         "description": "Free HD wallpapers for desktop computers. Download thousands of beautiful backgrounds without registration.",
         "publisher": {
             "@type": "Organization",
             "name": "WallDrafts",
             "logo": {
                 "@type": "ImageObject",
-                "url": "https://walldrafts.com{% static 'images/logo.png' %}",
+                "url": "https://www.walldrafts.com{% static 'images/logo.png' %}",
                 "width": 512,
                 "height": 512
             }
         },
         "potentialAction": {
             "@type": "SearchAction",
-            "target": "https://walldrafts.com/search/?q={search_term_string}",
+            "target": "https://www.walldrafts.com/search/?q={search_term_string}",
             "query-input": "required name=search_term_string"
         }
     }
     </script>
-    
+
     <!-- Additional Schema for Local Business (Optional) -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "Organization",
         "name": "WallDrafts",
-        "url": "https://walldrafts.com",
-        "logo": "https://walldrafts.com{% static 'images/logo.png' %}",
+        "url": "https://www.walldrafts.com",
+        "logo": "https://www.walldrafts.com{% static 'images/logo.png' %}",
         "description": "Free HD wallpapers download service"
     }
     </script>
-    
+
     <title>{% block title %}WallDrafts - Free HD Wallpapers for Desktop{% endblock %}</title>
     <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
-    
+
     <!-- Preload critical assets -->
     <link rel="preload" href="{% static 'fonts/Audiowide-Regular.ttf' %}" as="font" type="font/ttf" crossorigin>
     <link rel="preload" href="{% static 'css/main.css' %}" as="style">
-    
+
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <!-- Custom Font -->
     <style>
         @font-face {
@@ -90,38 +91,37 @@
             font-style: normal;
             font-display: swap;
         }
-        
+
         /* Critical CSS for above-the-fold content */
         .critical-css {
             /* Add minimal styles needed for immediate rendering */
         }
     </style>
-    
+
     <!-- CSS -->
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="stylesheet" href="{% static 'css/animations.css' %}">
-    
+
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Breadcrumb Schema -->
     {% block breadcrumb_schema %}{% endblock %}
-    
+
     {% block extra_css %}{% endblock %}
-    
-    <!-- Google Analytics (Add your tracking ID) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXX-X"></script>
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4TGJJ5X73Y"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-XXXXXX-X');
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-4TGJJ5X73Y');
     </script>
 </head>
 <body>
-    <!-- Skip to main content for accessibility -->
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-    
+
     <!-- Theme Toggle -->
     <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme">
         <i class="fas fa-sun"></i>
@@ -133,7 +133,7 @@
             <div class="cookie-text">
                 <h3 id="cookieTitle">🍪 Cookie Consent</h3>
                 <p>
-                    We use cookies to enhance your browsing experience. 
+                    We use cookies to enhance your browsing experience.
                     <a href="{% url 'wallpapers:cookie_policy' %}" class="cookie-link">Learn more</a>
                 </p>
             </div>
@@ -164,7 +164,7 @@
                         <span class="logo-text">allDrafts</span>
                     </div>
                 </a>
-                
+
                 <!-- Desktop Navigation -->
                 <nav class="header-nav" role="navigation" aria-label="Main navigation">
                     <div class="nav-dropdown">
@@ -195,23 +195,23 @@
                         <i class="fas fa-fire"></i>
                         <span>Trending</span>
                     </a>
-                    
+
                     <a href="{% url 'wallpapers:random_wallpaper' %}" class="nav-link" aria-label="Random wallpaper">
                         <i class="fas fa-random"></i>
                         <span>Random</span>
                     </a>
-                    
+
                     <a href="{% url 'wallpapers:favorites' %}" class="nav-link" aria-label="My favorites">
                         <i class="far fa-star"></i>
                         <span>Favorites</span>
                     </a>
-                    
+
                     <!-- Search in Header -->
                     <div class="header-search" role="search">
                         <form action="{% url 'wallpapers:search' %}" method="GET" class="search-form" aria-label="Search wallpapers">
                             <div class="search-input-wrapper">
                                 <i class="fas fa-search search-icon" aria-hidden="true"></i>
-                                <input type="search" name="q" placeholder="Search wallpapers..." class="search-input" 
+                                <input type="search" name="q" placeholder="Search wallpapers..." class="search-input"
                                        aria-label="Search for wallpapers" autocomplete="off">
                             </div>
                         </form>
@@ -240,7 +240,7 @@
                 <form action="{% url 'wallpapers:search' %}" method="GET" class="search-form" aria-label="Search wallpapers">
                     <div class="search-input-wrapper">
                         <i class="fas fa-search search-icon" aria-hidden="true"></i>
-                        <input type="search" name="q" placeholder="Search wallpapers..." class="search-input" 
+                        <input type="search" name="q" placeholder="Search wallpapers..." class="search-input"
                                aria-label="Search for wallpapers" autocomplete="off">
                     </div>
                 </form>
@@ -299,7 +299,7 @@
                         </div>
                     </div>
                     <p class="footer-description">
-                        Your source for free high-quality wallpapers. 
+                        Your source for free high-quality wallpapers.
                         Thousands of HD backgrounds updated daily.
                     </p>
                     <div class="footer-social">
@@ -314,7 +314,7 @@
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="footer-column">
                     <h4 class="footer-title">Explore</h4>
                     <a href="{% url 'wallpapers:home' %}" class="footer-link">Home</a>
@@ -322,7 +322,7 @@
                     <a href="{% url 'wallpapers:random_wallpaper' %}" class="footer-link">Random</a>
                     <a href="{% url 'wallpapers:favorites' %}" class="footer-link">Favorites</a>
                 </div>
-                
+
                 <div class="footer-column">
                     <h4 class="footer-title">Categories</h4>
                     {% for category in categories|slice:":4" %}
@@ -330,7 +330,7 @@
                     {% endfor %}
                     <a href="{% url 'wallpapers:categories' %}" class="footer-link view-all">All Categories</a>
                 </div>
-                
+
                 <div class="footer-column">
                     <h4 class="footer-title">Legal</h4>
                     <a href="{% url 'wallpapers:terms_of_service' %}" class="footer-link">Terms of Service</a>
@@ -339,7 +339,7 @@
                     <a href="{% url 'wallpapers:dmca' %}" class="footer-link">DMCA</a>
                 </div>
             </div>
-            
+
             <div class="footer-bottom">
                 <p>&copy; 2025 WallDrafts. All rights reserved.</p>
                 <p class="footer-disclaimer">
@@ -353,35 +353,35 @@
     <script src="{% static 'js/main.js' %}" defer></script>
     <script src="{% static 'js/cookies.js' %}" defer></script>
     <script src="{% static 'js/animations.js' %}" defer></script>
-    
+
     {% block extra_js %}{% endblock %}
-    
+
     <script>
         // Mobile menu functionality
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
         const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
         const mobileMenuClose = document.getElementById('mobileMenuClose');
-        
+
         function toggleMobileMenu(show) {
             mobileMenu.classList.toggle('active', show);
             mobileMenuOverlay.classList.toggle('active', show);
             mobileMenuBtn.setAttribute('aria-expanded', show);
             document.body.style.overflow = show ? 'hidden' : '';
         }
-        
+
         mobileMenuBtn.addEventListener('click', () => toggleMobileMenu(true));
         mobileMenuClose.addEventListener('click', () => toggleMobileMenu(false));
         mobileMenuOverlay.addEventListener('click', () => toggleMobileMenu(false));
-        
+
         // Close mobile menu when clicking on links
         document.querySelectorAll('.mobile-menu-link').forEach(link => {
             link.addEventListener('click', () => toggleMobileMenu(false));
         });
-        
+
         // Scroll to top functionality
         const scrollToTopBtn = document.getElementById('scrollToTop');
-        
+
         window.addEventListener('scroll', () => {
             if (window.pageYOffset > 300) {
                 scrollToTopBtn.classList.add('visible');
@@ -389,24 +389,24 @@
                 scrollToTopBtn.classList.remove('visible');
             }
         });
-        
+
         scrollToTopBtn.addEventListener('click', () => {
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
         });
-        
+
         // Theme initialization
         document.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('theme') || 'dark';
             const themeToggle = document.getElementById('themeToggle');
-            
+
             if (themeToggle) {
                 const icon = themeToggle.querySelector('i');
                 icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
             }
-            
+
             // Set initial ARIA attributes
             mobileMenuBtn.setAttribute('aria-expanded', 'false');
         });

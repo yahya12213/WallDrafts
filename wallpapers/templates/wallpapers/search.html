@@ -3,25 +3,33 @@
 
 {% block title %}Search Wallpapers - WallDrafts{% endblock %}
 {% block meta_description %}Search for HD wallpapers by title, tags, or category. Find the perfect background for your device.{% endblock %}
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4TGJJ5X73Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-4TGJJ5X73Y');
+</script>
 {% block extra_css %}
 <style>
     .search-page {
         padding: 2rem 0;
     }
-    
+
     .search-header {
         text-align: center;
         margin-bottom: 3rem;
     }
-    
+
     .search-title {
         font-size: clamp(2rem, 4vw, 3rem);
         font-weight: 700;
         margin-bottom: 1rem;
         color: var(--text-color);
     }
-    
+
     .search-query {
         color: var(--primary-color);
         background: rgba(19, 157, 248, 0.1);
@@ -29,19 +37,19 @@
         border-radius: var(--radius);
         font-weight: 600;
     }
-    
+
     .search-subtitle {
         color: var(--text-secondary);
         font-size: 1.125rem;
         max-width: 600px;
         margin: 0 auto;
     }
-    
+
     .search-form-large {
         max-width: 600px;
         margin: 0 auto 3rem;
     }
-    
+
     .search-results-info {
         display: flex;
         justify-content: space-between;
@@ -52,16 +60,16 @@
         flex-wrap: wrap;
         gap: 1rem;
     }
-    
+
     .results-count {
         font-weight: 600;
         color: var(--text-color);
     }
-    
+
     .results-count-number {
         color: var(--primary-color);
     }
-    
+
     .sort-select {
         padding: 0.5rem 1rem;
         background: var(--surface-secondary);
@@ -72,7 +80,7 @@
         min-width: 200px;
         cursor: pointer;
     }
-    
+
     .no-results {
         text-align: center;
         padding: 3rem;
@@ -81,33 +89,33 @@
         border-radius: var(--radius-lg);
         margin: 2rem 0;
     }
-    
+
     .no-results-icon {
         font-size: 3rem;
         color: var(--text-muted);
         margin-bottom: 1rem;
         opacity: 0.5;
     }
-    
+
     .no-results-title {
         font-size: 1.5rem;
         color: var(--text-color);
         margin-bottom: 0.5rem;
     }
-    
+
     .no-results-text {
         color: var(--text-secondary);
         max-width: 400px;
         margin: 0 auto 1.5rem;
     }
-    
+
     .search-suggestions {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 1rem;
         margin-top: 2rem;
     }
-    
+
     .suggestion-card {
         display: flex;
         flex-direction: column;
@@ -121,39 +129,39 @@
         color: var(--text-color);
         transition: var(--transition);
     }
-    
+
     .suggestion-card:hover {
         transform: translateY(-4px);
         box-shadow: var(--shadow-lg);
         border-color: var(--primary-color);
     }
-    
+
     .suggestion-icon {
         font-size: 2rem;
         color: var(--primary-color);
     }
-    
+
     .suggestion-title {
         font-weight: 600;
         text-align: center;
     }
-    
+
     .suggestion-description {
         font-size: 0.875rem;
         color: var(--text-secondary);
         text-align: center;
     }
-    
+
     @media (max-width: 768px) {
         .search-results-info {
             flex-direction: column;
             align-items: stretch;
         }
-        
+
         .sort-select {
             width: 100%;
         }
-        
+
         .search-suggestions {
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         }
@@ -179,14 +187,14 @@
         </p>
         {% endif %}
     </div>
-    
+
     <!-- Search Form -->
     <div class="search-form-large">
         <form action="{% url 'wallpapers:search' %}" method="GET" class="search-form">
             <div class="search-input-wrapper">
                 <i class="fas fa-search search-icon"></i>
-                <input type="search" name="q" 
-                       placeholder="Search for wallpapers..." 
+                <input type="search" name="q"
+                       placeholder="Search for wallpapers..."
                        value="{{ query|default:'' }}"
                        class="search-input"
                        autocomplete="off"
@@ -194,14 +202,14 @@
             </div>
         </form>
     </div>
-    
+
     {% if query %}
     <!-- Results Info -->
     <div class="search-results-info">
         <div class="results-count">
             <span class="results-count-number">{{ total_results }}</span> results found
         </div>
-        
+
         <select class="sort-select" id="sortSelect" onchange="handleSortChange()">
             <option value="relevance" {% if sort_by == 'relevance' %}selected{% endif %}>Relevance</option>
             <option value="recent" {% if sort_by == 'recent' %}selected{% endif %}>Most Recent</option>
@@ -209,7 +217,7 @@
             <option value="downloads" {% if sort_by == 'downloads' %}selected{% endif %}>Most Downloads</option>
         </select>
     </div>
-    
+
     {% if results %}
     <!-- Results Grid -->
     <div class="wallpapers-grid">
@@ -218,12 +226,12 @@
             <a href="{% url 'wallpapers:wallpaper_detail' wallpaper.id %}">
                 <img src="{{ wallpaper.thumbnail_url }}" alt="{{ wallpaper.title }}" class="wallpaper-image">
             </a>
-            
+
             <div class="wallpaper-download-count">
                 <i class="fas fa-download"></i>
                 {{ wallpaper.downloads_count|default:0 }}
             </div>
-            
+
             {% if wallpaper.is_trending %}
             <div class="trending-badge">
                 <i class="fas fa-fire"></i>
@@ -243,7 +251,7 @@
         </div>
         {% endfor %}
     </div>
-    
+
     <!-- Pagination -->
     {% if results.has_other_pages %}
     <div class="pagination">
@@ -258,11 +266,11 @@
             Previous
         </span>
         {% endif %}
-        
+
         <span class="pagination-info">
             Page {{ results.number }} of {{ results.paginator.num_pages }}
         </span>
-        
+
         {% if results.has_next %}
         <a href="?q={{ query }}&page={{ results.next_page_number }}&sort={{ sort_by }}" class="pagination-btn">
             Next
@@ -276,7 +284,7 @@
         {% endif %}
     </div>
     {% endif %}
-    
+
     {% else %}
     <!-- No Results with Suggestions -->
     <div class="no-results">
@@ -287,7 +295,7 @@
         <p class="no-results-text">
             No wallpapers match your search for "<strong>{{ query }}</strong>"
         </p>
-        
+
         <!-- Suggestions -->
         <div class="search-suggestions">
             <a href="{% url 'wallpapers:search' %}?q=nature" class="suggestion-card">
@@ -297,7 +305,7 @@
                 <h3 class="suggestion-title">Nature</h3>
                 <p class="suggestion-description">Forests, mountains, landscapes</p>
             </a>
-            
+
             <a href="{% url 'wallpapers:search' %}?q=abstract" class="suggestion-card">
                 <div class="suggestion-icon">
                     <i class="fas fa-shapes"></i>
@@ -305,7 +313,7 @@
                 <h3 class="suggestion-title">Abstract</h3>
                 <p class="suggestion-description">Patterns, colors, digital art</p>
             </a>
-            
+
             <a href="{% url 'wallpapers:search' %}?q=space" class="suggestion-card">
                 <div class="suggestion-icon">
                     <i class="fas fa-star"></i>
@@ -313,7 +321,7 @@
                 <h3 class="suggestion-title">Space</h3>
                 <p class="suggestion-description">Galaxies, planets, stars</p>
             </a>
-            
+
             <a href="{% url 'wallpapers:search' %}?q=minimal" class="suggestion-card">
                 <div class="suggestion-icon">
                     <i class="fas fa-minus"></i>

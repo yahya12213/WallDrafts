@@ -4,7 +4,15 @@
 {% block title %}{{ page_title|default:'My Favorites - WallDrafts' }}{% endblock %}
 {% block meta_description %}{{ meta_description|default:'Access your favorite wallpapers collection. All your saved HD backgrounds in one place for easy downloading.' }}{% endblock %}
 {% block meta_keywords %}{{ meta_keywords|default:'favorite wallpapers, saved backgrounds, wallpaper collection, my favorites, bookmarked wallpapers' }}{% endblock %}
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4TGJJ5X73Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-4TGJJ5X73Y');
+</script>
 {% block extra_css %}
 <style>
     /* Favorites Page Styles */
@@ -254,15 +262,15 @@
             flex-direction: column;
             align-items: stretch;
         }
-        
+
         .filter-buttons {
             justify-content: center;
         }
-        
+
         .favorites-grid {
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         }
-        
+
         .favorite-actions {
             grid-template-columns: 1fr;
         }
@@ -272,7 +280,7 @@
         .favorites-grid {
             grid-template-columns: 1fr;
         }
-        
+
         .favorites-title {
             font-size: 2rem;
         }
@@ -295,7 +303,7 @@
             <button class="filter-btn" data-filter="desktop">Desktop</button>
             <button class="filter-btn" data-filter="trending">Trending</button>
         </div>
-        
+
         <div class="sort-control">
             <select class="sort-select" id="sortSelect">
                 <option value="recent">Recently Added</option>

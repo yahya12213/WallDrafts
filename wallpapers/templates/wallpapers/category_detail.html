@@ -7,6 +7,15 @@
 {% block meta_description %}Download free {{ category.name }} wallpapers for desktop. High-quality {{ category.name }} backgrounds in various resolutions including 4K and 2K.{% endblock %}
 
 {% block meta_keywords %}{{ category.name }} wallpapers, {{ category.name }} backgrounds, HD {{ category.name }} images, desktop {{ category.name }} wallpapers, free {{ category.name }} backgrounds{% endblock %}
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4TGJJ5X73Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4TGJJ5X73Y');
+</script>
 
 {% block extra_css %}
 <style>
@@ -18,9 +27,9 @@
         position: relative;
         overflow: hidden;
         margin-bottom: 3rem;
-        
+
     }
-    
+
     .category-hero-bg {
         position: absolute;
         top: 0;
@@ -29,7 +38,7 @@
         height: 100%;
         z-index: 1;
     }
-    
+
     .category-hero-bg::before {
         content: '';
         position: absolute;
@@ -40,18 +49,18 @@
         background: linear-gradient(135deg, rgba(15, 23, 42, 0.63) 0%, rgba(30, 41, 59, 0.38) 100%);
         z-index: 2;
     }
-    
+
     .category-hero-bg-img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         transition: transform 0.8s ease;
     }
-    
+
     .category-hero:hover .category-hero-bg-img {
         transform: scale(1.05);
     }
-    
+
     .category-hero-content {
         position: relative;
         z-index: 3;
@@ -62,7 +71,7 @@
         width: 100%;
         color: white;
     }
-    
+
     .category-hero-title {
         font-size: clamp(2rem, 4vw, 3.5rem);
         font-weight: 400;
@@ -71,7 +80,7 @@
         color: white;
         text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
     }
-    
+
     .category-hero-description {
         font-size: clamp(1rem, 2vw, 1.25rem);
         opacity: 0.9;
@@ -82,7 +91,7 @@
         color: rgba(255, 255, 255, 0.9);
         line-height: 1.6;
     }
-    
+
     /* Category Controls */
     .category-controls {
         display: flex;
@@ -96,37 +105,37 @@
         flex-wrap: wrap;
         gap: 1.5rem;
     }
-    
+
     .category-info {
         display: flex;
         align-items: center;
         gap: 1rem;
         flex-wrap: wrap;
     }
-    
+
     .category-icon {
         font-size: 2rem;
         color: var(--primary-color);
     }
-    
+
     .category-name {
         font-size: 1.5rem;
         font-weight: 600;
         color: var(--text-color);
     }
-    
+
     .sort-controls {
         display: flex;
         align-items: center;
         gap: 1rem;
         flex-wrap: wrap;
     }
-    
+
     .sort-label {
         color: var(--text-secondary);
         font-weight: 500;
     }
-    
+
     .sort-select {
         padding: 0.75rem 1.5rem;
         background: var(--surface-color);
@@ -139,13 +148,13 @@
         min-width: 200px;
         font-family: inherit;
     }
-    
+
     .sort-select:focus {
         outline: none;
         border-color: var(--primary-color);
         box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
     }
-    
+
     /* Wallpapers Grid */
     .wallpapers-grid {
         display: grid;
@@ -153,7 +162,7 @@
         gap: 1.75rem;
         margin-bottom: 3rem;
     }
-    
+
     /* Pagination */
     .pagination {
         display: flex;
@@ -163,7 +172,7 @@
         margin-top: 3rem;
         flex-wrap: wrap;
     }
-    
+
     .pagination-btn {
         padding: 0.75rem 1.5rem;
         background: var(--surface-color);
@@ -177,58 +186,58 @@
         align-items: center;
         gap: 0.5rem;
     }
-    
+
     .pagination-btn:hover:not(.disabled) {
         background: var(--primary-color);
         color: white;
         border-color: var(--primary-color);
         transform: translateY(-2px);
     }
-    
+
     .pagination-btn.disabled {
         opacity: 0.5;
         cursor: not-allowed;
     }
-    
+
     .pagination-info {
         color: var(--text-secondary);
         font-size: 0.95rem;
         padding: 0.5rem 1rem;
     }
-    
+
     /* Responsive */
     @media (max-width: 768px) {
         .category-hero {
             min-height: 30vh;
             margin-bottom: 2rem;
         }
-        
+
         .category-controls {
             flex-direction: column;
             align-items: stretch;
             gap: 1rem;
         }
-        
+
         .category-info {
             justify-content: center;
             text-align: center;
         }
-        
+
         .sort-controls {
             justify-content: center;
         }
-        
+
         .wallpapers-grid {
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 1.5rem;
         }
     }
-    
+
     @media (max-width: 480px) {
         .category-hero {
             min-height: 25vh;
         }
-        
+
         .wallpapers-grid {
             grid-template-columns: 1fr;
         }
@@ -246,7 +255,7 @@
         <div style="background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%); height: 100%;"></div>
         {% endif %}
     </div>
-    
+
     <div class="container">
         <div class="category-hero-content">
             <h1 class="category-hero-title">{{ category.name }} Wallpapers</h1>
@@ -272,7 +281,7 @@
             </div>
             <h2 class="category-name">{{ category.name }} Wallpapers</h2>
         </div>
-        
+
         <div class="sort-controls">
             <span class="sort-label">Sort by:</span>
             <select class="sort-select" id="sort-select" onchange="handleSortChange(this.value)">
@@ -284,7 +293,7 @@
             </select>
         </div>
     </div>
-    
+
     <!-- Wallpapers Grid -->
     <div class="wallpapers-grid">
         {% for wallpaper in wallpapers %}
@@ -292,19 +301,19 @@
             <a href="{% url 'wallpapers:wallpaper_detail' wallpaper.id %}">
                 <img src="{{ wallpaper.thumbnail_url }}" alt="{{ wallpaper.title }}" class="wallpaper-image">
             </a>
-            
+
             <div class="wallpaper-download-count">
                 <i class="fas fa-download"></i>
                 {{ wallpaper.downloads_count|default:0 }}
             </div>
-            
+
             {% if wallpaper.is_trending and wallpaper.trending_percentage %}
             <div class="trending-badge">
                 <i class="fas fa-fire"></i>
                 {{ wallpaper.trending_percentage }}%
             </div>
             {% endif %}
-            
+
 
         </div>
         {% empty %}
@@ -317,7 +326,7 @@
         </div>
         {% endfor %}
     </div>
-    
+
     <!-- Pagination -->
     {% if wallpapers.has_other_pages %}
     <div class="pagination">
@@ -332,11 +341,11 @@
             Previous
         </span>
         {% endif %}
-        
+
         <span class="pagination-info">
             Page {{ wallpapers.number }} of {{ wallpapers.paginator.num_pages }}
         </span>
-        
+
         {% if wallpapers.has_next %}
         <a href="?page={{ wallpapers.next_page_number }}{% if sort_by %}&sort={{ sort_by }}{% endif %}" class="pagination-btn">
             Next
@@ -368,14 +377,14 @@ document.addEventListener('DOMContentLoaded', function() {
         btn.addEventListener('click', async function(e) {
             e.preventDefault();
             e.stopPropagation();
-            
+
             const wallpaperId = this.dataset.wallpaperId;
             const isLiked = this.querySelector('i').classList.contains('fas');
-            
+
             try {
                 const response = await fetch(`/like/${wallpaperId}/`);
                 const data = await response.json();
-                
+
                 if (data.success) {
                     const icon = this.querySelector('i');
                     if (data.is_liked) {
@@ -387,7 +396,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         icon.style.color = '';
                         showNotification('Wallpaper unliked!', 'info');
                     }
-                    
+
                     // Animation
                     this.style.transform = 'scale(1.2)';
                     setTimeout(() => {
@@ -400,23 +409,23 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-    
+
     // Download functionality (immediate)
     document.querySelectorAll('.download-btn').forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            
+
             const wallpaperId = this.dataset.wallpaperId;
-            
+
             // Create hidden iframe for immediate download
             const iframe = document.createElement('iframe');
             iframe.style.display = 'none';
             iframe.src = `/download/${wallpaperId}/`;
             document.body.appendChild(iframe);
-            
+
             showNotification('Download started!', 'success');
-            
+
             // Remove iframe after 1 second
             setTimeout(() => {
                 if (iframe.parentNode) {
@@ -425,17 +434,17 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 1000);
         });
     });
-    
+
     // Share functionality
     document.querySelectorAll('.share-btn').forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            
+
             const wallpaperId = this.dataset.wallpaperId;
             const shareUrl = `${window.location.origin}/wallpaper/${wallpaperId}/`;
             const shareText = 'Check out this awesome wallpaper!';
-            
+
             if (navigator.share) {
                 navigator.share({
                     title: 'WallDrafts Wallpaper',
@@ -454,7 +463,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function showNotification(message, type = 'info') {
     const notification = document.createElement('div');
     const bgColor = type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#6366f1';
-    
+
     notification.style.cssText = `
         position: fixed;
         top: 20px;
@@ -477,11 +486,11 @@ function showNotification(message, type = 'info') {
         ${message}
     `;
     document.body.appendChild(notification);
-    
+
     setTimeout(() => {
         notification.style.transform = 'translateX(0)';
     }, 10);
-    
+
     setTimeout(() => {
         notification.style.transform = 'translateX(120%)';
         setTimeout(() => {

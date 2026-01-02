@@ -4,7 +4,15 @@
 {% block title %}Trending Wallpapers - WallDrafts{% endblock %}
 {% block meta_description %}Discover the most popular trending wallpapers. Download free HD backgrounds that are currently trending worldwide.{% endblock %}
 {% block meta_keywords %}trending wallpapers, popular backgrounds, hot wallpapers, viral wallpapers, most downloaded backgrounds{% endblock %}
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4TGJJ5X73Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-4TGJJ5X73Y');
+</script>
 {% block extra_css %}
 <style>
     .trending-container {
@@ -101,12 +109,12 @@
         .trending-stats {
             grid-template-columns: repeat(2, 1fr);
         }
-        
+
         .sort-controls {
             flex-direction: column;
             align-items: stretch;
         }
-        
+
         .sort-select {
             width: 100%;
         }
@@ -116,7 +124,7 @@
         .trending-stats {
             grid-template-columns: 1fr;
         }
-        
+
         .trending-title {
             font-size: 2rem;
         }
@@ -141,7 +149,7 @@
             <div class="stat-number">{{ wallpapers.paginator.count }}</div>
             <div class="stat-label">Trending Wallpapers</div>
         </div>
-        
+
         <div class="stat-card">
             <div class="stat-icon">
                 <i class="fas fa-download"></i>
@@ -149,7 +157,7 @@
             <div class="stat-number">{{ total_downloads }}</div>
             <div class="stat-label">Total Downloads</div>
         </div>
-        
+
         <div class="stat-card">
             <div class="stat-icon">
                 <i class="fas fa-heart"></i>
@@ -177,12 +185,12 @@
             <a href="{% url 'wallpapers:wallpaper_detail' wallpaper.id %}">
                 <img src="{{ wallpaper.thumbnail_url }}" alt="{{ wallpaper.title }}" class="wallpaper-image">
             </a>
-            
+
             <div class="wallpaper-download-count">
                 <i class="fas fa-download"></i>
                 {{ wallpaper.downloads_count|default:0 }}
             </div>
-            
+
             {% if wallpaper.is_trending %}
             <div class="trending-badge">
                 <i class="fas fa-fire"></i>
@@ -200,7 +208,7 @@
         </div>
         {% endfor %}
     </div>
-    
+
     <!-- Pagination -->
     {% if wallpapers.has_other_pages %}
     <div class="pagination">
@@ -215,11 +223,11 @@
             Previous
         </span>
         {% endif %}
-        
+
         <span class="pagination-info">
             Page {{ wallpapers.number }} of {{ wallpapers.paginator.num_pages }}
         </span>
-        
+
         {% if wallpapers.has_next %}
         <a href="?page={{ wallpapers.next_page_number }}&sort={{ sort_by }}" class="pagination-btn">
             Next

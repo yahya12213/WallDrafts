@@ -15,11 +15,19 @@
   "width": "{{ wallpaper.resolution_width }}",
   "height": "{{ wallpaper.resolution_height }}",
   "license": "https://creativecommons.org/licenses/by/4.0/",
-  "acquireLicensePage": "https://walldrafts.com/dmca/",
+  "acquireLicensePage": "https://www.walldrafts.com/dmca/",
   "creditText": "WallDrafts"
 }
 </script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4TGJJ5X73Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-4TGJJ5X73Y');
+</script>
 {% block extra_css %}
 <style>
     /* ===== WALLPAPER DETAIL ===== */
@@ -710,7 +718,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         'X-CSRFToken': csrfToken
                     }
                 });
-                
+
                 if (!response.ok) {
                     throw new Error('Server responded with ' + response.status);
                 }
@@ -752,7 +760,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             } catch (error) {
                 console.error('Like error:', error);
-                
+
                 // Revert UI changes
                 this.innerHTML = originalHTML;
                 if (isCurrentlyLiked) {
@@ -800,7 +808,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         'X-CSRFToken': csrfToken
                     }
                 });
-                
+
                 if (!response.ok) {
                     throw new Error('Server responded with ' + response.status);
                 }
@@ -842,7 +850,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             } catch (error) {
                 console.error('Favorite error:', error);
-                
+
                 // Revert UI changes
                 this.innerHTML = originalHTML;
                 if (isCurrentlyFavorited) {

@@ -6,7 +6,15 @@
 {% block meta_description %}WallDrafts Privacy Policy: We collect minimal data as no registration is required. Learn how we handle your privacy.{% endblock %}
 
 {% block meta_keywords %}privacy policy, data protection, no registration, anonymous browsing, wallpaper download privacy{% endblock %}
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4TGJJ5X73Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'G-4TGJJ5X73Y');
+</script>
 {% block extra_css %}
 <style>
     .privacy-container {
@@ -14,7 +22,7 @@
         margin: 0 auto;
         padding: 3rem 1rem;
     }
-    
+
     .privacy-header {
         text-align: center;
         margin-bottom: 3rem;
@@ -25,7 +33,7 @@
         position: relative;
         overflow: hidden;
     }
-    
+
     .privacy-header::before {
         content: '';
         position: absolute;
@@ -36,7 +44,7 @@
         background: rgba(0, 0, 0, 0.1);
         z-index: 1;
     }
-    
+
     .privacy-title {
         font-size: 2.75rem;
         font-weight: 700;
@@ -45,7 +53,7 @@
         position: relative;
         z-index: 2;
     }
-    
+
     .privacy-subtitle {
         font-size: 1.2rem;
         color: rgba(255, 255, 255, 0.9);
@@ -55,7 +63,7 @@
         position: relative;
         z-index: 2;
     }
-    
+
     .last-updated {
         color: rgba(255, 255, 255, 0.9);
         font-size: 1rem;
@@ -63,7 +71,7 @@
         position: relative;
         z-index: 2;
     }
-    
+
     .privacy-content {
         background: var(--surface-color);
         padding: 3rem;
@@ -71,7 +79,7 @@
         box-shadow: var(--shadow-lg);
         border: 1px solid var(--border-color);
     }
-    
+
     .section-title {
         font-size: 1.75rem;
         font-weight: 700;
@@ -80,29 +88,29 @@
         padding-bottom: 0.75rem;
         border-bottom: 3px solid var(--accent-color);
     }
-    
+
     .section-title:first-of-type {
         margin-top: 0;
     }
-    
+
     .privacy-text {
         line-height: 1.8;
         color: var(--text-color);
         margin-bottom: 1.5rem;
         font-size: 1.05rem;
     }
-    
+
     .privacy-list {
         padding-left: 2rem;
         margin-bottom: 1.5rem;
     }
-    
+
     .privacy-list li {
         margin-bottom: 1rem;
         line-height: 1.6;
         color: var(--text-color);
     }
-    
+
     .highlight-box {
         background: rgba(16, 185, 129, 0.1);
         border: 2px solid rgba(16, 185, 129, 0.3);
@@ -110,7 +118,7 @@
         border-radius: 10px;
         margin: 2rem 0;
     }
-    
+
     .highlight-box-title {
         color: #10b981;
         font-weight: 600;
@@ -119,7 +127,7 @@
         align-items: center;
         gap: 0.5rem;
     }
-    
+
     .data-box {
         background: rgba(59, 130, 246, 0.1);
         border: 2px solid rgba(59, 130, 246, 0.3);
@@ -127,7 +135,7 @@
         border-radius: 10px;
         margin: 2rem 0;
     }
-    
+
     .data-box-title {
         color: #2563eb;
         font-weight: 600;
@@ -136,7 +144,7 @@
         align-items: center;
         gap: 0.5rem;
     }
-    
+
     .info-box {
         background: rgba(139, 92, 246, 0.1);
         border: 2px solid rgba(139, 92, 246, 0.3);
@@ -144,7 +152,7 @@
         border-radius: 10px;
         margin: 2rem 0;
     }
-    
+
     .info-box-title {
         color: #8b5cf6;
         font-weight: 600;
@@ -153,7 +161,7 @@
         align-items: center;
         gap: 0.5rem;
     }
-    
+
     .no-data-box {
         background: rgba(245, 158, 11, 0.1);
         border: 2px solid rgba(245, 158, 11, 0.3);
@@ -161,7 +169,7 @@
         border-radius: 10px;
         margin: 2rem 0;
     }
-    
+
     .no-data-box-title {
         color: #f59e0b;
         font-weight: 600;
@@ -170,7 +178,7 @@
         align-items: center;
         gap: 0.5rem;
     }
-    
+
     .data-table {
         width: 100%;
         border-collapse: collapse;
@@ -179,7 +187,7 @@
         border-radius: 10px;
         overflow: hidden;
     }
-    
+
     .data-table th {
         background: var(--accent-color);
         color: white;
@@ -188,35 +196,35 @@
         text-align: left;
         font-size: 0.95rem;
     }
-    
+
     .data-table td {
         padding: 1rem;
         border: 1px solid var(--border-color);
         color: var(--text-color);
         font-size: 0.95rem;
     }
-    
+
     .data-table tr:nth-child(even) {
         background: var(--surface-secondary);
     }
-    
+
     @media (max-width: 768px) {
         .privacy-container {
             padding: 1.5rem;
         }
-        
+
         .privacy-title {
             font-size: 2rem;
         }
-        
+
         .privacy-content {
             padding: 1.5rem;
         }
-        
+
         .section-title {
             font-size: 1.5rem;
         }
-        
+
         .data-table {
             display: block;
             overflow-x: auto;
@@ -233,9 +241,9 @@
         <p class="privacy-subtitle">
             No registration required. Minimal data collection for anonymous browsing.
         </p>
-        <div class="last-updated">Last Updated: January 1, 2024</div>
+        <div class="last-updated">Last Updated: January 1, 2026</div>
     </div>
-    
+
     <div class="privacy-content">
         <!-- Key Feature -->
         <div class="highlight-box">
@@ -244,21 +252,21 @@
                 Key Privacy Feature: No Registration Required
             </h4>
             <p class="privacy-text">
-                WallDrafts is designed to respect your privacy from the ground up. We don't require user registration, 
+                WallDrafts is designed to respect your privacy from the ground up. We don't require user registration,
                 meaning we don't collect personal information like names, emails, or passwords.
             </p>
         </div>
 
         <!-- Introduction -->
         <p class="privacy-text">
-            This Privacy Policy explains how WallDrafts ("we," "our," or "us") collects, uses, and protects 
-            information when you use our wallpaper download service. Since no registration is required, we collect 
+            This Privacy Policy explains how WallDrafts ("we," "our," or "us") collects, uses, and protects
+            information when you use our wallpaper download service. Since no registration is required, we collect
             minimal data necessary to provide and improve our service.
         </p>
 
         <!-- Section 1 -->
         <h2 class="section-title">1. Information We Collect</h2>
-        
+
         <div class="no-data-box">
             <h4 class="no-data-box-title">
                 <i class="fas fa-user-times"></i>
@@ -286,7 +294,7 @@
         <p class="privacy-text">
             Like most websites, our servers automatically record basic information:
         </p>
-        
+
         <table class="data-table">
             <thead>
                 <tr>
@@ -349,7 +357,7 @@
 
         <!-- Section 2 -->
         <h2 class="section-title">2. How We Use Your Information</h2>
-        
+
         <div class="info-box">
             <h4 class="info-box-title">
                 <i class="fas fa-chart-line"></i>
@@ -369,7 +377,7 @@
         </ul>
 
         <p class="privacy-text">
-            <strong>We never sell, rent, or trade your data.</strong> We don't use data for advertising or share it 
+            <strong>We never sell, rent, or trade your data.</strong> We don't use data for advertising or share it
             with third parties for marketing purposes.
         </p>
 
@@ -388,7 +396,7 @@
 
         <!-- Section 4 -->
         <h2 class="section-title">4. Cookies and Tracking</h2>
-        
+
         <div class="info-box">
             <h4 class="info-box-title">
                 <i class="fas fa-cookie-bite"></i>
@@ -423,7 +431,7 @@
         <p class="privacy-text">
             Since we collect minimal data and don't have user accounts, your rights are straightforward:
         </p>
-        
+
         <div class="highlight-box">
             <h4 class="highlight-box-title">
                 <i class="fas fa-user-cog"></i>
@@ -440,14 +448,14 @@
         <!-- Section 7 -->
         <h2 class="section-title">7. Children's Privacy</h2>
         <p class="privacy-text">
-            Our service is safe for all ages. We don't collect age information, but we ensure our content is 
+            Our service is safe for all ages. We don't collect age information, but we ensure our content is
             appropriate for general audiences.
         </p>
 
         <!-- Section 8 -->
         <h2 class="section-title">8. Changes to This Policy</h2>
         <p class="privacy-text">
-            We may update this Privacy Policy to reflect changes in our practices. We will update the "Last Updated" 
+            We may update this Privacy Policy to reflect changes in our practices. We will update the "Last Updated"
             date when changes are made.
         </p>
 

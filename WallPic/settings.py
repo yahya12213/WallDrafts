@@ -28,10 +28,11 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "unsafe-secret-key")
 DEBUG = os.environ.get("DEBUG") == "True"
 
 
-ALLOWED_HOSTS = os.environ.get(
-    "ALLOWED_HOSTS", ""
-).split(",")
-
+ALLOWED_HOSTS = [
+    "walldrafts.onrender.com",
+    "walldrafts.com",
+    "www.walldrafts.com",
+]
 # Application definition
 
 INSTALLED_APPS = [

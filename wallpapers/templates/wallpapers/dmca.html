@@ -1,0 +1,300 @@
+
+{% extends 'wallpapers/base.html' %}
+{% load static %}
+
+{% block title %}DMCA Policy - WallDrafts | Copyright{% endblock %}
+
+{% block meta_description %}WallDrafts DMCA Policy. Report copyright infringement for wallpaper content.{% endblock %}
+
+{% block meta_keywords %}DMCA policy, copyright infringement, wallpaper copyright, takedown notice{% endblock %}
+
+{% block extra_css %}
+<style>
+    .dmca-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 3rem 1rem;
+    }
+    
+    .dmca-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 3rem 0;
+        background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+        border-radius: 15px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .dmca-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.1);
+        z-index: 1;
+    }
+    
+    .dmca-title {
+        font-size: 2.75rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: white;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .last-updated {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1rem;
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .dmca-content {
+        background: var(--surface-color);
+        padding: 3rem;
+        border-radius: 15px;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--border-color);
+    }
+    
+    .section-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--text-color);
+        margin: 3rem 0 1.5rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 3px solid #dc2626;
+    }
+    
+    .section-title:first-of-type {
+        margin-top: 0;
+    }
+    
+    .dmca-text {
+        line-height: 1.8;
+        color: var(--text-color);
+        margin-bottom: 1.5rem;
+        font-size: 1.05rem;
+    }
+    
+    .dmca-list {
+        padding-left: 2rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .dmca-list li {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+        color: var(--text-color);
+    }
+    
+    .warning-box {
+        background: rgba(220, 38, 38, 0.1);
+        border: 2px solid rgba(220, 38, 38, 0.3);
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin: 2rem 0;
+    }
+    
+    .warning-box-title {
+        color: #dc2626;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .info-box {
+        background: rgba(59, 130, 246, 0.1);
+        border: 2px solid rgba(59, 130, 246, 0.3);
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin: 2rem 0;
+    }
+    
+    .info-box-title {
+        color: #2563eb;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .contact-box {
+        background: linear-gradient(135deg, var(--surface-color) 0%, var(--surface-secondary) 100%);
+        padding: 2rem;
+        border-radius: 10px;
+        margin: 3rem 0;
+        border: 2px solid var(--border-color);
+    }
+    
+    .contact-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-color);
+        margin-bottom: 1rem;
+        color: #dc2626;
+    }
+    
+    .contact-email {
+        font-size: 1.25rem;
+        color: #dc2626;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 1.5rem;
+        background: var(--surface-color);
+        border-radius: 8px;
+        margin: 0.5rem 0;
+        transition: var(--transition);
+        border: 2px solid rgba(220, 38, 38, 0.3);
+    }
+    
+    .contact-email:hover {
+        background: #dc2626;
+        color: white;
+        transform: translateY(-2px);
+    }
+    
+    @media (max-width: 768px) {
+        .dmca-container {
+            padding: 1.5rem;
+        }
+        
+        .dmca-title {
+            font-size: 2rem;
+        }
+        
+        .dmca-content {
+            padding: 1.5rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dmca-container">
+    <!-- Header -->
+    <div class="dmca-header">
+        <h1 class="dmca-title">DMCA Policy</h1>
+        <div class="last-updated">Last Updated: January 1, 2024</div>
+    </div>
+    
+    <div class="dmca-content">
+        <!-- Introduction -->
+        <div class="info-box">
+            <h4 class="info-box-title">
+                <i class="fas fa-info-circle"></i>
+                About WallDrafts Content
+            </h4>
+            <p class="dmca-text">
+                WallDrafts is a free wallpaper download service. We make reasonable efforts to ensure all wallpapers 
+                are either original content, properly licensed, or believed to be in the public domain.
+            </p>
+        </div>
+
+        <p class="dmca-text">
+            WallDrafts respects the intellectual property rights of others and complies with the Digital Millennium 
+            Copyright Act (DMCA). This policy outlines our procedures for addressing copyright infringement claims.
+        </p>
+
+        <!-- Section 1 -->
+        <h2 class="section-title">1. Reporting Copyright Infringement</h2>
+        <p class="dmca-text">
+            If you are a copyright owner or authorized agent and believe that content on WallDrafts infringes your 
+            copyright, you may submit a DMCA takedown notice.
+        </p>
+
+        <div class="warning-box">
+            <h4 class="warning-box-title">
+                <i class="fas fa-exclamation-triangle"></i>
+                Required Information for DMCA Notice
+            </h4>
+            <p class="dmca-text">
+                A valid DMCA takedown notice must include:
+            </p>
+            <ul class="dmca-list">
+                <li>Your full legal name and contact information</li>
+                <li>Identification of the copyrighted work claimed to be infringed</li>
+                <li>URL(s) of the allegedly infringing wallpaper(s) on WallDrafts</li>
+                <li>A statement that you have a good faith belief the use is not authorized</li>
+                <li>A statement under penalty of perjury that the information is accurate</li>
+                <li>Your physical or electronic signature</li>
+            </ul>
+        </div>
+
+        <!-- Section 2 -->
+        <h2 class="section-title">2. Takedown Process</h2>
+        <p class="dmca-text">
+            Upon receiving a valid DMCA notice:
+        </p>
+        <ul class="dmca-list">
+            <li>We will acknowledge receipt within 48 hours</li>
+            <li>We will review the notice for completeness</li>
+            <li>If valid, we will remove or disable access to the content within 24-48 hours</li>
+            <li>We will notify the affected content (if applicable)</li>
+        </ul>
+
+        <!-- Section 3 -->
+        <h2 class="section-title">3. Counter-Notice Procedure</h2>
+        <p class="dmca-text">
+            If you believe your content was removed in error, you may submit a counter-notice containing:
+        </p>
+        <ul class="dmca-list">
+            <li>Your contact information</li>
+            <li>Identification of the removed content</li>
+            <li>A statement under penalty of perjury of good faith belief of removal error</li>
+            <li>Consent to jurisdiction in your local federal district court</li>
+            <li>Your physical or electronic signature</li>
+        </ul>
+
+        <!-- Section 4 -->
+        <h2 class="section-title">4. Repeat Infringer Policy</h2>
+        <p class="dmca-text">
+            In appropriate circumstances, we may disable or terminate access to users who are repeat infringers.
+        </p>
+
+        <!-- Section 5 -->
+        <h2 class="section-title">5. Misuse of DMCA Process</h2>
+        <p class="dmca-text">
+            Knowingly submitting false DMCA claims may result in legal liability under 17 U.S.C. § 512(f).
+        </p>
+
+        <!-- Contact Information -->
+        <div class="contact-box">
+            <h3 class="contact-title">Submit DMCA Notice</h3>
+            <p class="dmca-text">
+                Send DMCA notices to our designated agent:
+            </p>
+            <a href="mailto:dmca@walldrafts.com" class="contact-email">
+                <i class="fas fa-envelope"></i>
+                walldraftsteam@gmail.com
+            </a>
+            <p class="dmca-text" style="margin-top: 1rem; font-size: 0.95rem; color: var(--text-secondary);">
+                Please include "DMCA Notice" in the subject line. We typically respond within 48 hours.
+            </p>
+        </div>
+
+        <!-- Final Note -->
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 2px solid var(--border-color);">
+            <p class="dmca-text" style="text-align: center; font-style: italic;">
+                This DMCA policy is effective as of January 1, 2026. We reserve the right to modify this policy as needed.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

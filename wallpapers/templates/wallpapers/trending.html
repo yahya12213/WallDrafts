@@ -1,0 +1,249 @@
+{% extends 'wallpapers/base.html' %}
+{% load static %}
+
+{% block title %}Trending Wallpapers - WallDrafts{% endblock %}
+{% block meta_description %}Discover the most popular trending wallpapers. Download free HD backgrounds that are currently trending worldwide.{% endblock %}
+{% block meta_keywords %}trending wallpapers, popular backgrounds, hot wallpapers, viral wallpapers, most downloaded backgrounds{% endblock %}
+
+{% block extra_css %}
+<style>
+    .trending-container {
+        padding: 2rem 0;
+    }
+
+    .trending-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 2rem;
+        background: linear-gradient(135deg, #FEC262 0%, #FD09A9 100%);
+        border-radius: 15px;
+        color: var(--text-color);
+    }
+
+    .trending-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .trending-subtitle {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .trending-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .stat-card {
+        background: var(--surface-color);
+        padding: 1.5rem;
+        border-radius: 10px;
+        text-align: center;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border-color);
+        transition: var(--transition);
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--primary-color);
+    }
+
+    .stat-icon {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--text-color);
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+    }
+
+    .sort-controls {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        background: var(--surface-color);
+        border-radius: 10px;
+        box-shadow: var(--shadow);
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .sort-select {
+        padding: 0.5rem 1rem;
+        background: var(--surface-secondary);
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+        border-radius: 5px;
+        min-width: 200px;
+        font-family: inherit;
+    }
+
+    @media (max-width: 768px) {
+        .trending-stats {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .sort-controls {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        
+        .sort-select {
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .trending-stats {
+            grid-template-columns: 1fr;
+        }
+        
+        .trending-title {
+            font-size: 2rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container trending-container">
+    <!-- Header -->
+    <div class="trending-header">
+        <h1 class="trending-title">Trending Now</h1>
+        <p class="trending-subtitle">Most popular wallpapers this week</p>
+    </div>
+
+    <!-- Stats -->
+    <div class="trending-stats">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-fire"></i>
+            </div>
+            <div class="stat-number">{{ wallpapers.paginator.count }}</div>
+            <div class="stat-label">Trending Wallpapers</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-download"></i>
+            </div>
+            <div class="stat-number">{{ total_downloads }}</div>
+            <div class="stat-label">Total Downloads</div>
+        </div>
+        
+        <div class="stat-card">
+            <div class="stat-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <div class="stat-number">{{ total_likes }}</div>
+            <div class="stat-label">Total Likes</div>
+        </div>
+    </div>
+
+    <!-- Sort Controls -->
+    <div class="sort-controls">
+        <h3 style="font-size: 1.2rem; color: var(--text-color); margin: 0;">Sort by:</h3>
+        <select class="sort-select" id="sortSelect" onchange="handleSortChange()">
+            <option value="trending" {% if sort_by == 'trending' %}selected{% endif %}>Trending</option>
+            <option value="recent" {% if sort_by == 'recent' %}selected{% endif %}>Most Recent</option>
+            <option value="downloads" {% if sort_by == 'downloads' %}selected{% endif %}>Most Downloads</option>
+            <option value="likes" {% if sort_by == 'likes' %}selected{% endif %}>Most Likes</option>
+        </select>
+    </div>
+
+    <!-- Wallpapers Grid -->
+    <div class="wallpapers-grid">
+        {% for wallpaper in wallpapers %}
+        <div class="wallpaper-card" data-wallpaper-id="{{ wallpaper.id }}">
+            <a href="{% url 'wallpapers:wallpaper_detail' wallpaper.id %}">
+                <img src="{{ wallpaper.thumbnail_url }}" alt="{{ wallpaper.title }}" class="wallpaper-image">
+            </a>
+            
+            <div class="wallpaper-download-count">
+                <i class="fas fa-download"></i>
+                {{ wallpaper.downloads_count|default:0 }}
+            </div>
+            
+            {% if wallpaper.is_trending %}
+            <div class="trending-badge">
+                <i class="fas fa-fire"></i>
+                Trending
+            </div>
+            {% endif %}
+        </div>
+        {% empty %}
+        <div class="empty-state" style="grid-column: 1 / -1;">
+            <div class="empty-icon">
+                <i class="fas fa-fire"></i>
+            </div>
+            <h3 class="empty-title">No trending wallpapers yet</h3>
+            <p class="empty-subtitle">Check back soon for trending wallpapers!</p>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <!-- Pagination -->
+    {% if wallpapers.has_other_pages %}
+    <div class="pagination">
+        {% if wallpapers.has_previous %}
+        <a href="?page={{ wallpapers.previous_page_number }}&sort={{ sort_by }}" class="pagination-btn">
+            <i class="fas fa-chevron-left"></i>
+            Previous
+        </a>
+        {% else %}
+        <span class="pagination-btn disabled">
+            <i class="fas fa-chevron-left"></i>
+            Previous
+        </span>
+        {% endif %}
+        
+        <span class="pagination-info">
+            Page {{ wallpapers.number }} of {{ wallpapers.paginator.num_pages }}
+        </span>
+        
+        {% if wallpapers.has_next %}
+        <a href="?page={{ wallpapers.next_page_number }}&sort={{ sort_by }}" class="pagination-btn">
+            Next
+            <i class="fas fa-chevron-right"></i>
+        </a>
+        {% else %}
+        <span class="pagination-btn disabled">
+            Next
+            <i class="fas fa-chevron-right"></i>
+        </span>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function handleSortChange() {
+    const sortSelect = document.getElementById('sortSelect');
+    const url = new URL(window.location);
+    url.searchParams.set('sort', sortSelect.value);
+    url.searchParams.set('page', '1');
+    window.location.href = url.toString();
+}
+</script>
+{% endblock %}

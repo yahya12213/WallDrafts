@@ -1,0 +1,865 @@
+{% extends 'wallpapers/base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+{% block meta_keywords %}{{ meta_keywords }}{% endblock %}
+<!-- Add this to wallpaper_detail.html -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  "contentUrl": "{{ wallpaper.image_url }}",
+  "description": "{{ wallpaper.title }} - HD Wallpaper",
+  "name": "{{ wallpaper.title }}",
+  "width": "{{ wallpaper.resolution_width }}",
+  "height": "{{ wallpaper.resolution_height }}",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "acquireLicensePage": "https://walldrafts.com/dmca/",
+  "creditText": "WallDrafts"
+}
+</script>
+
+{% block extra_css %}
+<style>
+    /* ===== WALLPAPER DETAIL ===== */
+    .wallpaper-detail-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem 1rem;
+    }
+
+    .wallpaper-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+
+    .wallpaper-title {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+        font-weight: 700;
+        color: var(--text-color);
+        margin-bottom: 0.75rem;
+        line-height: 1.2;
+    }
+
+    .wallpaper-meta {
+        display: flex;
+        gap: 1.5rem;
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .meta-item i {
+        color: var(--primary-color);
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+        display: flex;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+    }
+
+    .action-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1.25rem;
+        background: var(--surface-color);
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+        border-radius: var(--radius);
+        cursor: pointer;
+        transition: var(--transition);
+        font-size: 0.95rem;
+        font-weight: 500;
+    }
+
+    .action-btn:hover {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+        transform: translateY(-2px);
+    }
+
+    .action-btn.active {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+    }
+
+    .action-btn.active:hover {
+        background: var(--primary-dark);
+    }
+
+    /* Main Image Container */
+    .main-image-container {
+        position: relative;
+        margin-bottom: 3rem;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-xl);
+        background: var(--surface-color);
+        border: 1px solid var(--border-color);
+    }
+
+    .main-image {
+        width: 100%;
+        height: auto;
+        display: block;
+        max-height: 70vh;
+        object-fit: contain;
+        background: var(--surface-color);
+    }
+
+    /* Download Overlay */
+    .download-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+        padding: 2rem;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+
+    .download-stats {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .stat-large {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: white;
+    }
+
+    .stat-label {
+        font-size: 0.95rem;
+        opacity: 0.9;
+    }
+
+    /* Download Button */
+    .download-btn-large {
+        padding: 1rem 2rem;
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+        color: white;
+        border: none;
+        font-weight: 600;
+        font-size: 1rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        text-decoration: none;
+        transition: var(--transition);
+        border-radius: var(--radius);
+        cursor: pointer;
+        white-space: nowrap;
+        box-shadow: 0 10px 25px rgba(19, 157, 248, 0.3);
+    }
+
+    .download-btn-large:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 35px rgba(19, 157, 248, 0.4);
+        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--accent-dark) 100%);
+    }
+
+    .download-btn-large.loading {
+        opacity: 0.8;
+        cursor: not-allowed;
+    }
+
+    .download-btn-large:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    /* Details Grid */
+    .details-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+
+    .details-card {
+        background: var(--surface-color);
+        padding: 1.75rem;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border-color);
+    }
+
+    .details-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+        color: var(--text-color);
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid var(--border-color);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .details-title i {
+        color: var(--primary-color);
+    }
+
+    .details-list {
+        list-style: none;
+    }
+
+    .details-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.875rem 0;
+        border-bottom: 1px solid var(--border-color);
+        flex-wrap: wrap;
+    }
+
+    .details-item:last-child {
+        border-bottom: none;
+    }
+
+    .details-label {
+        color: var(--text-secondary);
+        font-weight: 500;
+        margin-right: 1rem;
+    }
+
+    .details-value {
+        color: var(--text-color);
+        font-weight: 600;
+        text-align: right;
+    }
+
+    /* Tags Container */
+    .tags-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .tag {
+        background: rgba(19, 157, 248, 0.1);
+        color: var(--primary-color);
+        padding: 0.5rem 1rem;
+        border-radius: var(--radius-full);
+        font-size: 0.875rem;
+        font-weight: 500;
+        transition: var(--transition);
+    }
+
+    .tag:hover {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-1px);
+    }
+
+    /* Color Palette */
+    .color-palette {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .color-item {
+        width: 3rem;
+        height: 3rem;
+        border-radius: var(--radius);
+        position: relative;
+        cursor: pointer;
+        transition: var(--transition);
+        flex-shrink: 0;
+        border: 2px solid var(--border-color);
+    }
+
+    .color-item:hover {
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: var(--shadow);
+    }
+
+    .color-tooltip {
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--surface-color);
+        color: var(--text-color);
+        padding: 0.5rem 0.75rem;
+        border-radius: var(--radius-sm);
+        font-size: 0.8rem;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        z-index: 10;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border-color);
+    }
+
+    .color-item:hover .color-tooltip {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(-5px);
+    }
+
+    /* Similar Wallpapers */
+    .similar-section {
+        margin-top: 4rem;
+    }
+
+    .similar-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1.75rem;
+        margin-top: 1.75rem;
+    }
+
+    .similar-card {
+        aspect-ratio: 16/10;
+        position: relative;
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        background: var(--surface-color);
+        text-decoration: none;
+    }
+
+    .similar-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .similar-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .similar-card .wallpaper-download-count {
+        position: absolute;
+        top: 0.75rem;
+        left: 0.75rem;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 0.375rem 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        z-index: 2;
+        border-radius: var(--radius-full);
+    }
+
+    .similar-card .trending-badge {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.75rem;
+        background: linear-gradient(135deg, var(--secondary-color), var(--secondary-dark));
+        color: var(--text-color);
+        padding: 0.375rem 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        z-index: 2;
+        border-radius: var(--radius-full);
+    }
+
+    /* ===== RESPONSIVE DESIGN ===== */
+    @media (max-width: 768px) {
+        .wallpaper-header {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .action-buttons {
+            justify-content: center;
+        }
+
+        .download-overlay {
+            flex-direction: column;
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .download-btn-large {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .similar-grid {
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        }
+
+        .details-item {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.375rem;
+        }
+
+        .details-label,
+        .details-value {
+            text-align: left;
+            width: 100%;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .wallpaper-detail-container {
+            padding: 1rem 0.75rem;
+        }
+
+        .wallpaper-meta {
+            font-size: 0.85rem;
+            gap: 1rem;
+        }
+
+        .download-btn-large {
+            padding: 0.875rem 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .similar-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .details-card {
+            padding: 1.25rem;
+        }
+
+        .color-item {
+            width: 2.5rem;
+            height: 2.5rem;
+        }
+
+        .action-btn {
+            padding: 0.625rem 1rem;
+            font-size: 0.875rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="wallpaper-detail-container">
+    <!-- Header -->
+    <div class="wallpaper-header">
+        <div>
+            <h1 class="wallpaper-title">{{ wallpaper.title }}</h1>
+            <div class="wallpaper-meta">
+                <div class="meta-item">
+                    <i class="fas fa-layer-group"></i>
+                    <span>{{ wallpaper.category.name }}</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-eye"></i>
+                    <span>{{ wallpaper.views_count }} views</span>
+                </div>
+                <div class="meta-item">
+                    <i class="fas fa-download"></i>
+                    <span>{{ wallpaper.downloads_count }} downloads</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="action-btn like-btn {% if is_liked %}active{% endif %}" title="Like" data-wallpaper-id="{{ wallpaper.id }}">
+                <i class="{% if is_liked %}fas{% else %}far{% endif %} fa-heart"></i>
+                <span>{{ wallpaper.likes_count }}</span>
+            </button>
+            <button class="action-btn favorite-btn {% if is_favorited %}active{% endif %}" title="Favorite" data-wallpaper-id="{{ wallpaper.id }}">
+                <i class="{% if is_favorited %}fas{% else %}far{% endif %} fa-star"></i>
+                <span>{{ wallpaper.favorites_count }}</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Image with Download -->
+    <div class="main-image-container">
+        <img src="{{ wallpaper.image_url }}" alt="{{ wallpaper.title }}" class="main-image" loading="lazy">
+
+        <div class="download-overlay">
+            <div class="download-stats">
+                <div class="stat-large">{{ wallpaper.downloads_count }} downloads</div>
+                <div class="stat-label">{{ download_time }}</div>
+            </div>
+            <button class="download-btn-large" id="main-download-btn" data-wallpaper-id="{{ wallpaper.id }}">
+                <i class="fas fa-download"></i>
+                Download Now
+            </button>
+        </div>
+    </div>
+
+    <!-- Details Grid -->
+    <div class="details-grid">
+        <!-- Technical Details -->
+        <div class="details-card">
+            <h3 class="details-title">
+                <i class="fas fa-cogs"></i>
+                Technical Details
+            </h3>
+            <ul class="details-list">
+                <li class="details-item">
+                    <span class="details-label">Resolution:</span>
+                    <span class="details-value">{{ wallpaper.resolution_width }} × {{ wallpaper.resolution_height }}</span>
+                </li>
+                <li class="details-item">
+                    <span class="details-label">Aspect Ratio:</span>
+                    <span class="details-value">{{ wallpaper.aspect_ratio|default:"16:9" }}</span>
+                </li>
+                <li class="details-item">
+                    <span class="details-label">File Format:</span>
+                    <span class="details-value">{{ wallpaper.file_format|default:"JPEG"|upper }}</span>
+                </li>
+                <li class="details-item">
+                    <span class="details-label">Quality:</span>
+                    <span class="details-value">{{ wallpaper.quality_label|default:"HD" }}</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Color Palette -->
+        <div class="details-card">
+            <h3 class="details-title">
+                <i class="fas fa-palette"></i>
+                Color Palette
+            </h3>
+            <div class="color-palette">
+                {% if wallpaper.color_palette %}
+                    {% for color_name, color_hex in wallpaper.color_palette.items %}
+                    <div class="color-item" style="background-color: {{ color_hex }};">
+                        <div class="color-tooltip">{{ color_name|title }}: {{ color_hex }}</div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="color: var(--text-secondary); font-style: italic;">No color data available</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Tags -->
+        <div class="details-card">
+            <h3 class="details-title">
+                <i class="fas fa-tags"></i>
+                Tags
+            </h3>
+            <div class="tags-container">
+                {% if wallpaper.tags %}
+                    {% for tag in wallpaper.tags.split|slice:":10" %}
+                    <span class="tag">{{ tag }}</span>
+                    {% endfor %}
+                {% else %}
+                    <p style="color: var(--text-secondary); font-style: italic;">No tags available</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Similar Wallpapers -->
+    {% if similar_wallpapers %}
+    <div class="similar-section">
+        <h2 style="font-size: 1.75rem; font-weight: 700; color: var(--text-color); margin-bottom: 1.25rem;">
+            Similar Wallpapers
+        </h2>
+        <div class="similar-grid">
+            {% for similar in similar_wallpapers %}
+            <a href="{% url 'wallpapers:wallpaper_detail' similar.id %}" class="similar-card">
+                <img src="{{ similar.thumbnail_url }}" alt="{{ similar.title }}" class="similar-image" loading="lazy">
+
+                {% if similar.downloads_count > 0 %}
+                <div class="wallpaper-download-count">
+                    <i class="fas fa-download"></i>
+                    {{ similar.downloads_count|default:0 }}
+                </div>
+                {% endif %}
+
+                {% if similar.is_trending %}
+                <div class="trending-badge">
+                    <i class="fas fa-fire"></i>
+                    Trending
+                </div>
+                {% endif %}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const mainDownloadBtn = document.getElementById('main-download-btn');
+    const likeBtn = document.querySelector('.like-btn');
+    const favoriteBtn = document.querySelector('.favorite-btn');
+    const wallpaperId = {{ wallpaper.id }};
+    const storage = new LocalStorageManager();
+
+    // Download button functionality
+    if (mainDownloadBtn) {
+        mainDownloadBtn.addEventListener('click', async function() {
+            const originalHTML = this.innerHTML;
+            const originalBg = this.style.background;
+
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing Download...';
+            this.classList.add('loading');
+            this.disabled = true;
+
+            try {
+                // Create a hidden iframe for download
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.src = `/download/${wallpaperId}/`;
+                document.body.appendChild(iframe);
+
+                // Update button to show success
+                setTimeout(() => {
+                    this.innerHTML = '<i class="fas fa-check"></i> Download Started!';
+                    this.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+
+                    // Reset after 2 seconds
+                    setTimeout(() => {
+                        this.innerHTML = originalHTML;
+                        this.style.background = originalBg;
+                        this.classList.remove('loading');
+                        this.disabled = false;
+                    }, 2000);
+
+                    // Remove iframe after download
+                    setTimeout(() => {
+                        if (iframe.parentNode) {
+                            document.body.removeChild(iframe);
+                        }
+                    }, 5000);
+                }, 500);
+
+                NotificationManager.show('Download started! Check your downloads folder.', 'success');
+
+            } catch (error) {
+                console.error('Download error:', error);
+                this.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Failed';
+                this.style.background = 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)';
+
+                setTimeout(() => {
+                    this.innerHTML = originalHTML;
+                    this.style.background = originalBg;
+                    this.classList.remove('loading');
+                    this.disabled = false;
+                }, 2000);
+
+                NotificationManager.show('Download failed! Please try again.', 'error');
+            }
+        });
+    }
+
+    // Like button functionality
+    if (likeBtn) {
+        likeBtn.addEventListener('click', async function() {
+            const isCurrentlyLiked = this.classList.contains('active');
+            const shouldBeLiked = !isCurrentlyLiked;
+
+            // Update localStorage immediately
+            storage.toggleLike(wallpaperId);
+
+            // Update UI temporarily
+            const originalHTML = this.innerHTML;
+            const countSpan = this.querySelector('span');
+            const currentCount = parseInt(countSpan.textContent) || 0;
+
+            if (shouldBeLiked) {
+                this.innerHTML = '<i class="fas fa-heart"></i><span>' + (currentCount + 1) + '</span>';
+            } else {
+                this.innerHTML = '<i class="far fa-heart"></i><span>' + (currentCount - 1) + '</span>';
+            }
+
+            try {
+                const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
+                const response = await fetch(`/like/${wallpaperId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Server responded with ' + response.status);
+                }
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Update with actual server response
+                    const iconClass = data.is_liked ? 'fas' : 'far';
+                    this.innerHTML = `<i class="${iconClass} fa-heart"></i><span>${data.likes_count}</span>`;
+
+                    // Update class based on server response
+                    if (data.is_liked) {
+                        this.classList.add('active');
+                        NotificationManager.show('Liked!', 'success');
+                    } else {
+                        this.classList.remove('active');
+                        NotificationManager.show('Unliked!', 'info');
+                    }
+
+                    // Sync localStorage with server state
+                    if (data.is_liked && !storage.isLiked(wallpaperId)) {
+                        storage.toggleLike(wallpaperId);
+                    } else if (!data.is_liked && storage.isLiked(wallpaperId)) {
+                        storage.toggleLike(wallpaperId);
+                    }
+                } else {
+                    // Revert to original state
+                    this.innerHTML = originalHTML;
+                    storage.toggleLike(wallpaperId); // Revert localStorage
+                    NotificationManager.show('Error updating like!', 'error');
+                }
+
+                // Add animation
+                this.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 300);
+
+            } catch (error) {
+                console.error('Like error:', error);
+                
+                // Revert UI changes
+                this.innerHTML = originalHTML;
+                if (isCurrentlyLiked) {
+                    this.classList.add('active');
+                } else {
+                    this.classList.remove('active');
+                }
+
+                // Revert localStorage
+                if (!isCurrentlyLiked) {
+                    storage.toggleLike(wallpaperId);
+                }
+
+                NotificationManager.show('Network error! Please check your connection.', 'error');
+            }
+        });
+    }
+
+    // Favorite button functionality
+    if (favoriteBtn) {
+        favoriteBtn.addEventListener('click', async function() {
+            const isCurrentlyFavorited = this.classList.contains('active');
+            const shouldBeFavorited = !isCurrentlyFavorited;
+
+            // Update localStorage immediately
+            storage.toggleFavorite(wallpaperId);
+
+            // Update UI temporarily
+            const originalHTML = this.innerHTML;
+            const countSpan = this.querySelector('span');
+            const currentCount = parseInt(countSpan.textContent) || 0;
+
+            if (shouldBeFavorited) {
+                this.innerHTML = '<i class="fas fa-star"></i><span>' + (currentCount + 1) + '</span>';
+            } else {
+                this.innerHTML = '<i class="far fa-star"></i><span>' + (currentCount - 1) + '</span>';
+            }
+
+            try {
+                const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
+                const response = await fetch(`/favorite/${wallpaperId}/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Server responded with ' + response.status);
+                }
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Update with actual server response
+                    const iconClass = data.is_favorited ? 'fas' : 'far';
+                    this.innerHTML = `<i class="${iconClass} fa-star"></i><span>${data.favorites_count}</span>`;
+
+                    // Update class based on server response
+                    if (data.is_favorited) {
+                        this.classList.add('active');
+                        NotificationManager.show('Added to favorites!', 'success');
+                    } else {
+                        this.classList.remove('active');
+                        NotificationManager.show('Removed from favorites!', 'info');
+                    }
+
+                    // Sync localStorage with server state
+                    if (data.is_favorited && !storage.isFavorited(wallpaperId)) {
+                        storage.toggleFavorite(wallpaperId);
+                    } else if (!data.is_favorited && storage.isFavorited(wallpaperId)) {
+                        storage.toggleFavorite(wallpaperId);
+                    }
+                } else {
+                    // Revert to original state
+                    this.innerHTML = originalHTML;
+                    storage.toggleFavorite(wallpaperId); // Revert localStorage
+                    NotificationManager.show('Error updating favorite!', 'error');
+                }
+
+                // Add animation
+                this.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 300);
+
+            } catch (error) {
+                console.error('Favorite error:', error);
+                
+                // Revert UI changes
+                this.innerHTML = originalHTML;
+                if (isCurrentlyFavorited) {
+                    this.classList.add('active');
+                } else {
+                    this.classList.remove('active');
+                }
+
+                // Revert localStorage
+                if (!isCurrentlyFavorited) {
+                    storage.toggleFavorite(wallpaperId);
+                }
+
+                NotificationManager.show('Network error! Please check your connection.', 'error');
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

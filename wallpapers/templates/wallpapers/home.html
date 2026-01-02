@@ -1,0 +1,741 @@
+
+{% extends 'wallpapers/base.html' %}
+{% load static %}
+
+{% block title %}Free HD Wallpapers for Desktop | WallDrafts - Download Now{% endblock %}
+
+{% block meta_description %}Download thousands of free HD wallpapers for desktop computers. No registration required. Browse categories like nature, abstract, gaming, anime, and space. Updated daily with new backgrounds.{% endblock %}
+
+{% block meta_keywords %}free wallpapers, HD wallpapers, desktop backgrounds, wallpaper download, 4K wallpapers, computer wallpapers, PC backgrounds, nature wallpapers, abstract wallpapers, gaming wallpapers{% endblock %}
+
+{% block og_title %}Free HD Wallpapers for Desktop - WallDrafts{% endblock %}
+{% block og_description %}Download free HD desktop wallpapers. No registration. Thousands of beautiful backgrounds in multiple categories.{% endblock %}
+
+{% block twitter_title %}Free HD Desktop Wallpapers - WallDrafts{% endblock %}
+{% block twitter_description %}Download beautiful HD wallpapers for your desktop. Free and no registration required!{% endblock %}
+
+{% block breadcrumb_schema %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+        {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://walldrafts.com/"
+        }
+    ]
+}
+</script>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* ===== HERO SECTION ===== */
+    .hero-section {
+        height: 60vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 3rem;
+        border-radius: 0;
+    }
+
+    .hero-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+    }
+
+    .hero-background::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+    }
+
+    .hero-background-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+        filter: brightness(0.8);
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 3;
+        text-align: center;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem;
+        width: 100%;
+    }
+
+    .hero-title {
+        font-size: clamp(2rem, 4vw, 3.5rem);
+        font-weight: normal;
+        margin-bottom: 1rem;
+        line-height: 1.1;
+        color: var(--text-color);
+        letter-spacing: 1px;
+        font-family: 'Audiowide', sans-serif;
+    }
+
+    .hero-subtitle {
+        font-size: clamp(1rem, 2vw, 1.25rem);
+        opacity: 0.9;
+        margin-bottom: 2rem;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        font-weight: 400;
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* Hero Search Box */
+    .hero-search {
+        max-width: 700px;
+        margin: 0 auto 2rem;
+        position: relative;
+    }
+
+    .hero-search .search-wrapper {
+        background: var(--surface-color);
+        backdrop-filter: blur(20px);
+        border: 2px solid var(--border-color);
+        padding: 0.25rem;
+        border-radius: var(--radius-lg);
+        transition: var(--transition);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .hero-search .search-wrapper:focus-within {
+        border-color: var(--primary-color);
+        box-shadow: 0 20px 40px rgba(19, 157, 248, 0.15);
+    }
+
+    .hero-search input {
+        width: 100%;
+        padding: 1.25rem 1rem 1.25rem 3.5rem;
+        background: transparent;
+        border: none;
+        color: var(--text-color);
+        font-size: 1.1rem;
+        font-weight: 400;
+        letter-spacing: 0.01em;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .hero-search input::placeholder {
+        color: var(--text-muted);
+        font-weight: 400;
+    }
+
+    .hero-search .search-icon {
+        color: var(--text-muted);
+        font-size: 1.2rem;
+        left: 1.25rem;
+    }
+
+    .hero-search input:focus {
+        outline: none;
+    }
+
+    /* Hero Stats */
+    .hero-stats {
+        display: flex;
+        justify-content: center;
+        gap: 3rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .hero-stat {
+        text-align: center;
+    }
+
+    .hero-stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+        font-family: 'Audiowide', sans-serif;
+    }
+
+    .hero-stat-label {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-weight: 500;
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* ===== FEATURED SECTIONS ===== */
+    .featured-section {
+        margin-bottom: 4rem;
+        padding: 1rem 0;
+    }
+
+    .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+        font-weight: normal;
+        color: var(--text-color);
+        position: relative;
+        padding-bottom: 0.5rem;
+        letter-spacing: 1px;
+        font-family: 'Audiowide', sans-serif;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        border-radius: 2px;
+    }
+
+    .section-description {
+        color: var(--text-secondary);
+        font-size: 1rem;
+        max-width: 600px;
+        margin-top: 0.5rem;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .section-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.95rem;
+        padding: 0.75rem 1.25rem;
+        background: rgba(19, 157, 248, 0.1);
+        border-radius: var(--radius);
+        transition: var(--transition);
+        white-space: nowrap;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .section-link:hover {
+        background: rgba(19, 157, 248, 0.2);
+        transform: translateX(5px);
+    }
+
+    /* ===== TRENDING SECTION ===== */
+    .trending-section {
+        background: linear-gradient(135deg, var(--surface-secondary) 0%, var(--bg-tertiary) 100%);
+        padding: 3rem 0;
+        margin: 3rem 0;
+        border-radius: var(--radius-xl);
+        border: 1px solid var(--border-color);
+    }
+
+    .trending-section .section-header {
+        border-bottom-color: rgba(0, 0, 0, 0.1);
+    }
+
+    /* ===== CATEGORIES PREVIEW ===== */
+    .categories-preview {
+        margin: 3rem 0;
+    }
+
+    .categories-scroll-container {
+        position: relative;
+        margin-top: 1.5rem;
+    }
+
+    .categories-scroll-wrapper {
+        display: flex;
+        gap: 1.5rem;
+        overflow-x: auto;
+        padding: 1rem 0.5rem;
+        scrollbar-width: thin;
+        scrollbar-color: var(--primary-color) transparent;
+        scroll-behavior: smooth;
+    }
+
+    .categories-scroll-wrapper::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .categories-scroll-wrapper::-webkit-scrollbar-track {
+        background: transparent;
+        border-radius: 3px;
+    }
+
+    .categories-scroll-wrapper::-webkit-scrollbar-thumb {
+        background: var(--primary-color);
+        border-radius: 3px;
+    }
+
+    .category-card-scroll {
+        flex: 0 0 auto;
+        width: 240px;
+        height: 300px;
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--radius-lg);
+        text-decoration: none;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+        border: 1px solid var(--border-color);
+    }
+
+    .category-card-scroll:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--primary-color);
+    }
+
+    .category-card-scroll img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .category-card-scroll:hover img {
+        transform: scale(1.1);
+    }
+
+    .category-card-fallback {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, var(--surface-color) 0%, rgba(19, 157, 248, 0.1) 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: var(--text-color);
+        padding: 2rem;
+    }
+
+    .category-card-fallback i {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+    .category-card-fallback h3 {
+        font-weight: 600;
+        font-size: 1.1rem;
+        text-align: center;
+        margin-bottom: 0.5rem;
+        font-family: 'Audiowide', sans-serif;
+    }
+
+    .category-card-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        padding: 1.5rem;
+        color: white;
+    }
+
+    .category-card-overlay h3 {
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-bottom: 0.25rem;
+        color: white;
+        font-family: 'Audiowide', sans-serif;
+    }
+
+    .category-card-overlay p {
+        font-size: 0.85rem;
+        opacity: 0.9;
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* Accessibility Improvements */
+    .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: var(--primary-color);
+        color: white;
+        padding: 8px;
+        z-index: 100;
+        text-decoration: none;
+    }
+
+    .skip-link:focus {
+        top: 0;
+    }
+
+    /* Lazy loading for images */
+    .lazy-load {
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .lazy-loaded {
+        opacity: 1;
+    }
+
+    /* ===== RESPONSIVE DESIGN ===== */
+    @media (max-width: 1024px) {
+        .hero-title {
+            font-size: 2.5rem;
+        }
+
+        .hero-section {
+            height: 50vh;
+        }
+
+        .hero-stats {
+            gap: 2rem;
+        }
+
+        .hero-stat-number {
+            font-size: 1.75rem;
+        }
+
+        .categories-scroll-wrapper {
+            gap: 1rem;
+        }
+
+        .category-card-scroll {
+            width: 220px;
+            height: 280px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero-section {
+            height: 45vh;
+            margin-bottom: 2rem;
+        }
+
+        .hero-title {
+            font-size: 2rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            display: block;
+        }
+
+        .hero-search {
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-stats {
+            gap: 1.5rem;
+        }
+
+        .hero-stat {
+            flex: 0 0 calc(50% - 1.5rem);
+        }
+
+        .section-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .section-link {
+            align-self: flex-start;
+        }
+
+        .trending-section {
+            padding: 2rem 0;
+            margin: 2rem 0;
+        }
+
+        .category-card-scroll {
+            width: 200px;
+            height: 260px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero-section {
+            height: 40vh;
+        }
+
+        .hero-title {
+            font-size: 1.75rem;
+        }
+
+        .hero-subtitle {
+            font-size: 0.95rem;
+            display: none;
+        }
+
+        .hero-search input {
+            padding: 1rem 1rem 1rem 3rem;
+            font-size: 1rem;
+        }
+
+        .hero-stat {
+            flex: 0 0 100%;
+        }
+
+        .hero-stat-number {
+            font-size: 1.5rem;
+        }
+
+        .category-card-scroll {
+            width: 180px;
+            height: 240px;
+        }
+
+        .categories-scroll-wrapper {
+            gap: 0.75rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- ===== HERO SECTION ===== -->
+<section class="hero-section" aria-labelledby="main-heading">
+    <div class="hero-background">
+        {% if hero_wallpaper %}
+        <img src="{{ hero_wallpaper.image_url }}" alt="{{ hero_wallpaper.title }} - HD Desktop Wallpaper" 
+             class="hero-background-img" loading="eager" width="1920" height="1080">
+        {% endif %}
+    </div>
+
+    <div class="container">
+        <div class="hero-content">
+            <h1 id="main-heading" class="hero-title">Discover Beautiful HD Wallpapers</h1>
+            <p class="hero-subtitle">
+                Explore thousands of free HD wallpapers for desktop computers.
+                Curated collection, updated daily. No registration required.
+            </p>
+
+    
+            
+            
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <!-- ===== RECENT WALLPAPERS ===== -->
+    <section class="featured-section" aria-labelledby="recent-heading">
+        <div class="section-header">
+            <div>
+                <h2 id="recent-heading" class="section-title">Recently Added Wallpapers</h2>
+                <p class="section-description">Fresh HD wallpapers added to our collection</p>
+            </div>
+            <a href="{% url 'wallpapers:desktop_list' %}" class="section-link" aria-label="View all recently added wallpapers">
+                View All <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div class="wallpapers-grid">
+            {% for wallpaper in recent_wallpapers %}
+            <article class="wallpaper-card" data-wallpaper-id="{{ wallpaper.id }}" aria-label="{{ wallpaper.title }}">
+                <a href="{% url 'wallpapers:wallpaper_detail' wallpaper.id %}" aria-label="View {{ wallpaper.title }} wallpaper details">
+                    <img src="{{ wallpaper.thumbnail_url }}" alt="{{ wallpaper.title }} - {{ wallpaper.resolution_width }}x{{ wallpaper.resolution_height }} HD Wallpaper" 
+                         class="wallpaper-image" loading="lazy" width="300" height="200">
+                </a>
+
+                <div class="wallpaper-download-count" aria-label="{{ wallpaper.downloads_count }} downloads">
+                    <i class="fas fa-download" aria-hidden="true"></i>
+                    {{ wallpaper.downloads_count|default:0 }}
+                </div>
+
+                {% if wallpaper.is_trending %}
+                <div class="trending-badge" aria-label="Trending wallpaper">
+                    <i class="fas fa-fire" aria-hidden="true"></i>
+                    Trending
+                </div>
+                {% endif %}
+            </article>
+            {% empty %}
+            <div class="empty-state" style="grid-column: 1 / -1;" aria-label="No wallpapers available">
+                <div class="empty-icon">
+                    <i class="fas fa-image" aria-hidden="true"></i>
+                </div>
+                <h3 class="empty-title">No wallpapers yet</h3>
+                <p class="empty-subtitle">Check back soon for new additions!</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- ===== TRENDING NOW ===== -->
+    <section class="trending-section" aria-labelledby="trending-heading">
+        <div class="container">
+            <div class="section-header">
+                <div>
+                    <h2 id="trending-heading" class="section-title">Trending Wallpapers</h2>
+                    <p class="section-description">Most popular HD wallpapers this week</p>
+                </div>
+                <a href="{% url 'wallpapers:trending' %}" class="section-link" aria-label="View all trending wallpapers">
+                    View All Trending <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                </a>
+            </div>
+
+            <div class="wallpapers-grid">
+                {% for wallpaper in trending_wallpapers %}
+                <article class="wallpaper-card" data-wallpaper-id="{{ wallpaper.id }}" aria-label="{{ wallpaper.title }}">
+                    <a href="{% url 'wallpapers:wallpaper_detail' wallpaper.id %}" aria-label="View {{ wallpaper.title }} wallpaper details">
+                        <img src="{{ wallpaper.thumbnail_url }}" alt="{{ wallpaper.title }} - Popular Wallpaper" 
+                             class="wallpaper-image" loading="lazy" width="300" height="200">
+                    </a>
+
+                    <div class="wallpaper-download-count" aria-label="{{ wallpaper.downloads_count }} downloads">
+                        <i class="fas fa-download" aria-hidden="true"></i>
+                        {{ wallpaper.downloads_count|default:0 }}
+                    </div>
+
+                    {% if wallpaper.is_trending %}
+                    <div class="trending-badge" aria-label="Trending wallpaper">
+                        <i class="fas fa-fire" aria-hidden="true"></i>
+                        Trending
+                    </div>
+                    {% endif %}
+                </article>
+                {% empty %}
+                <div class="empty-state" style="grid-column: 1 / -1;" aria-label="No trending wallpapers">
+                    <div class="empty-icon">
+                        <i class="fas fa-fire" aria-hidden="true"></i>
+                    </div>
+                    <h3 class="empty-title">No trending wallpapers yet</h3>
+                    <p class="empty-subtitle">Popular wallpapers will appear here as they gain traction</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BROWSE CATEGORIES ===== -->
+    <section class="categories-preview" aria-labelledby="categories-heading">
+        <div class="section-header">
+            <div>
+                <h2 id="categories-heading" class="section-title">Browse Wallpaper Categories</h2>
+                <p class="section-description">Find HD wallpapers by category</p>
+            </div>
+            <a href="{% url 'wallpapers:categories' %}" class="section-link" aria-label="View all wallpaper categories">
+                All Categories <i class="fas fa-arrow-right" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div class="categories-scroll-container">
+            <div class="categories-scroll-wrapper">
+                {% for category in categories|slice:":10" %}
+                <a href="{% url 'wallpapers:category_detail' category.slug %}" class="category-card-scroll" 
+                   aria-label="Browse {{ category.name }} wallpapers">
+                    {% if category.cover_image_url %}
+                    <img src="{{ category.cover_image_url }}" alt="{{ category.name }} wallpapers collection" 
+                         loading="lazy" width="240" height="300">
+                    {% else %}
+                    <div class="category-card-fallback">
+                        <div>
+                            {% if category.name|lower == "nature" %}
+                            <i class="fas fa-leaf" aria-hidden="true"></i>
+                            {% elif category.name|lower == "abstract" %}
+                            <i class="fas fa-shapes" aria-hidden="true"></i>
+                            {% elif category.name|lower == "cars" %}
+                            <i class="fas fa-car" aria-hidden="true"></i>
+                            {% elif category.name|lower == "anime" %}
+                            <i class="fas fa-ghost" aria-hidden="true"></i>
+                            {% elif category.name|lower == "space" %}
+                            <i class="fas fa-star" aria-hidden="true"></i>
+                            {% elif category.name|lower == "minimal" %}
+                            <i class="fas fa-minus" aria-hidden="true"></i>
+                            {% elif category.name|lower == "gaming" %}
+                            <i class="fas fa-gamepad" aria-hidden="true"></i>
+                            {% elif category.name|lower == "dark" %}
+                            <i class="fas fa-moon" aria-hidden="true"></i>
+                            {% else %}
+                            <i class="fas fa-image" aria-hidden="true"></i>
+                            {% endif %}
+                        </div>
+                        <h3>{{ category.name }}</h3>
+                        <p>{{ category.description|default:"Beautiful wallpapers"|truncatewords:8 }}</p>
+                    </div>
+                    {% endif %}
+
+                    <div class="category-card-overlay">
+                        <h3>{{ category.name }}</h3>
+                        <p>{{ category.description|default:"Explore collection"|truncatechars:60 }}</p>
+                    </div>
+                </a>
+                {% empty %}
+                <div class="empty-state" style="width: 100%; padding: 2rem;" aria-label="No categories available">
+                    <i class="fas fa-folder-open" aria-hidden="true" style="font-size: 2.5rem; color: var(--text-muted); margin-bottom: 1rem;"></i>
+                    <h3 style="font-size: 1.25rem; color: var(--text-color); margin-bottom: 0.5rem;">No categories available</h3>
+                    <p style="color: var(--text-secondary);">Categories will appear here once added.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Category scroll functionality
+        const scrollWrapper = document.querySelector('.categories-scroll-wrapper');
+        
+        if (scrollWrapper) {
+            // Show/hide scroll buttons based on scroll position
+            function updateScrollButtons() {
+                const scrollLeftPos = scrollWrapper.scrollLeft;
+                const maxScrollLeft = scrollWrapper.scrollWidth - scrollWrapper.clientWidth;
+                
+                // You can add scroll buttons if needed
+            }
+            
+            scrollWrapper.addEventListener('scroll', updateScrollButtons);
+            updateScrollButtons();
+        }
+        
+        // Lazy loading for images
+        const lazyImages = [].slice.call(document.querySelectorAll('img[loading="lazy"]'));
+        
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.classList.add('lazy-loaded');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+            
+            lazyImages.forEach(function(img) {
+                imageObserver.observe(img);
+            });
+        }
+    });
+</script>
+{% endblock %}

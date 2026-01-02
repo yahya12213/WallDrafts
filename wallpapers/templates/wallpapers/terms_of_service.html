@@ -1,0 +1,391 @@
+{% extends 'wallpapers/base.html' %}
+{% load static %}
+
+{% block title %}Terms of Service - WallDrafts | Free HD Wallpapers{% endblock %}
+
+{% block meta_description %}Terms of Service for WallDrafts - Free HD desktop wallpapers. Read our terms for browsing and downloading wallpapers.{% endblock %}
+
+{% block meta_keywords %}terms of service, legal terms, wallpaper download terms, free wallpapers terms{% endblock %}
+
+{% block extra_css %}
+<style>
+    .legal-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 3rem 1rem;
+    }
+    
+    .legal-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 3rem 0;
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+        border-radius: 15px;
+        color: white;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .legal-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.1);
+        z-index: 1;
+    }
+    
+    .legal-title {
+        font-size: 2.75rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: white;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .last-updated {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1rem;
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 2;
+    }
+    
+    .legal-content {
+        background: var(--surface-color);
+        padding: 3rem;
+        border-radius: 15px;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--border-color);
+    }
+    
+    .section-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--text-color);
+        margin: 3rem 0 1.5rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 3px solid var(--primary-color);
+    }
+    
+    .section-title:first-of-type {
+        margin-top: 0;
+    }
+    
+    .legal-text {
+        line-height: 1.8;
+        color: var(--text-color);
+        margin-bottom: 1.5rem;
+        font-size: 1.05rem;
+    }
+    
+    .legal-list {
+        padding-left: 2rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .legal-list li {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+        color: var(--text-color);
+    }
+    
+    .highlight {
+        background: rgba(19, 157, 248, 0.1);
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+    
+    .feature-box {
+        background: rgba(16, 185, 129, 0.1);
+        border: 2px solid rgba(16, 185, 129, 0.3);
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin: 2rem 0;
+    }
+    
+    .feature-box-title {
+        color: #10b981;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .warning-box {
+        background: rgba(239, 68, 68, 0.1);
+        border: 2px solid rgba(239, 68, 68, 0.3);
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin: 2rem 0;
+    }
+    
+    .warning-box-title {
+        color: #dc2626;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .info-box {
+        background: rgba(59, 130, 246, 0.1);
+        border: 2px solid rgba(59, 130, 246, 0.3);
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin: 2rem 0;
+    }
+    
+    .info-box-title {
+        color: #2563eb;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    @media (max-width: 768px) {
+        .legal-container {
+            padding: 1.5rem;
+        }
+        
+        .legal-title {
+            font-size: 2rem;
+        }
+        
+        .legal-content {
+            padding: 1.5rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="legal-container">
+    <!-- Header -->
+    <div class="legal-header">
+        <h1 class="legal-title">Terms of Service</h1>
+        <div class="last-updated">Last Updated: January 1, 2024</div>
+    </div>
+    
+    <div class="legal-content">
+        <!-- Introduction -->
+        <div class="feature-box">
+            <h4 class="feature-box-title">
+                <i class="fas fa-check-circle"></i>
+                No Registration Required
+            </h4>
+            <p class="legal-text">
+                WallDrafts is a completely free service that requires no user registration. You can browse, search, 
+                and download wallpapers immediately without creating an account.
+            </p>
+        </div>
+
+        <p class="legal-text">
+            Welcome to WallDrafts! These Terms of Service ("Terms") govern your access to and use of the WallDrafts 
+            website and services (the "Service"). By accessing or using our Service, you agree to be bound by these 
+            Terms.
+        </p>
+
+        <!-- Section 1 -->
+        <h2 class="section-title">1. Service Description</h2>
+        <p class="legal-text">
+            WallDrafts provides a free platform for browsing and downloading HD desktop wallpapers. Our Service 
+            includes:
+        </p>
+        <ul class="legal-list">
+            <li><strong>Free Downloads:</strong> Download HD wallpapers for personal use without registration</li>
+            <li><strong>Browse by Categories:</strong> Organize wallpapers by categories like nature, abstract, gaming, etc.</li>
+            <li><strong>Search Functionality:</strong> Find wallpapers by title or tags</li>
+            <li><strong>Session Features:</strong> Like and favorite wallpapers (stored in browser session)</li>
+            <li><strong>Trending Content:</strong> Discover popular wallpapers based on downloads</li>
+        </ul>
+
+        <!-- Section 2 -->
+        <h2 class="section-title">2. No Registration Required</h2>
+        <p class="legal-text">
+            <strong>Anonymous Access:</strong> You can access all core features of WallDrafts without creating an 
+            account or providing any personal information.
+        </p>
+        <p class="legal-text">
+            <strong>Session-Based Preferences:</strong> Features like "liking" wallpapers or saving favorites are 
+            stored in your browser's session storage. These preferences:
+        </p>
+        <ul class="legal-list">
+            <li>Are temporary and specific to your current browsing session</li>
+            <li>May be cleared when you close your browser or clear cookies</li>
+            <li>Are not tied to any user account or personal information</li>
+            <li>Cannot be recovered if lost</li>
+        </ul>
+
+        <!-- Section 3 -->
+        <h2 class="section-title">3. Acceptable Use</h2>
+        <p class="legal-text">
+            You agree to use WallDrafts responsibly and in accordance with these Terms:
+        </p>
+        
+        <div class="info-box">
+            <h4 class="info-box-title">
+                <i class="fas fa-check"></i>
+                Allowed Uses
+            </h4>
+            <ul class="legal-list">
+                <li>Download wallpapers for personal, non-commercial use</li>
+                <li>Browse and search our wallpaper collection</li>
+                <li>Use session features (like/favorite) for personal organization</li>
+                <li>Share wallpaper links with others</li>
+            </ul>
+        </div>
+        
+        <div class="warning-box">
+            <h4 class="warning-box-title">
+                <i class="fas fa-ban"></i>
+                Prohibited Activities
+            </h4>
+            <ul class="legal-list">
+                <li>Using automated scripts or bots to download wallpapers</li>
+                <li>Attempting to scrape or copy our entire wallpaper database</li>
+                <li>Using the Service for any illegal activities</li>
+                <li>Attempting to disrupt or overload our servers</li>
+                <li>Redistributing wallpapers for commercial purposes</li>
+            </ul>
+        </div>
+
+        <!-- Section 4 -->
+        <h2 class="section-title">4. Intellectual Property Rights</h2>
+        
+        <div class="info-box">
+            <h4 class="info-box-title">
+                <i class="fas fa-copyright"></i>
+                Copyright Information
+            </h4>
+            <p class="legal-text">
+                WallDrafts respects intellectual property rights. All wallpapers are provided under the following 
+                conditions:
+            </p>
+        </div>
+
+        <h3 class="legal-text"><strong>4.1 Wallpaper Content:</strong></h3>
+        <p class="legal-text">
+            We make reasonable efforts to ensure all wallpapers on WallDrafts are either:
+        </p>
+        <ul class="legal-list">
+            <li>Original content created by our team</li>
+            <li>Properly licensed from copyright holders</li>
+            <li>Available under public domain or Creative Commons licenses</li>
+            <li>Used in accordance with fair use principles</li>
+        </ul>
+
+        <h3 class="legal-text"><strong>4.2 Website Content:</strong></h3>
+        <p class="legal-text">
+            The WallDrafts website design, code, layout, and original content are owned by WallDrafts and protected 
+            by copyright laws.
+        </p>
+
+        <h3 class="legal-text"><strong>4.3 DMCA Compliance:</strong></h3>
+        <p class="legal-text">
+            We comply with the Digital Millennium Copyright Act (DMCA). If you believe any content infringes your 
+            copyright, please see our <a href="{% url 'wallpapers:dmca' %}" class="highlight">DMCA Policy</a>.
+        </p>
+
+        <!-- Section 5 -->
+        <h2 class="section-title">5. Data Collection and Privacy</h2>
+        <p class="legal-text">
+            <strong>Minimal Data Collection:</strong> Since no registration is required, we collect minimal data:
+        </p>
+        <ul class="legal-list">
+            <li>Download analytics (anonymous, aggregated)</li>
+            <li>Session data for features like favorites (stored locally in your browser)</li>
+            <li>Standard web server logs (IP addresses, browser information)</li>
+        </ul>
+        
+        <p class="legal-text">
+            For detailed information about how we handle data, please see our 
+            <a href="{% url 'wallpapers:privacy_policy' %}" class="highlight">Privacy Policy</a>.
+        </p>
+
+        <!-- Section 6 -->
+        <h2 class="section-title">6. Disclaimer of Warranties</h2>
+        <p class="legal-text">
+            THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, EITHER EXPRESS OR 
+            IMPLIED. WALLDRAFTS DOES NOT WARRANT THAT:
+        </p>
+        <ul class="legal-list">
+            <li>The Service will be uninterrupted or error-free</li>
+            <li>All wallpapers will be available at all times</li>
+            <li>The Service will meet your specific requirements</li>
+            <li>Any results from using the Service will be accurate or reliable</li>
+        </ul>
+
+        <!-- Section 7 -->
+        <h2 class="section-title">7. Limitation of Liability</h2>
+        <p class="legal-text">
+            TO THE MAXIMUM EXTENT PERMITTED BY LAW, WALLDRAFTS SHALL NOT BE LIABLE FOR:
+        </p>
+        <ul class="legal-list">
+            <li>Any indirect, incidental, or consequential damages</li>
+            <li>Loss of data or preferences stored in session</li>
+            <li>Damages resulting from inability to use the Service</li>
+            <li>Any third-party claims related to wallpaper content</li>
+        </ul>
+
+        <!-- Section 8 -->
+        <h2 class="section-title">8. Service Modifications and Termination</h2>
+        <p class="legal-text">
+            We reserve the right to:
+        </p>
+        <ul class="legal-list">
+            <li>Modify or discontinue the Service at any time</li>
+            <li>Change, suspend, or remove any wallpaper content</li>
+            <li>Update these Terms as needed</li>
+            <li>Restrict access to the Service if Terms are violated</li>
+        </ul>
+
+        <!-- Section 9 -->
+        <h2 class="section-title">9. Changes to These Terms</h2>
+        <p class="legal-text">
+            We may update these Terms from time to time. We will notify users of any material changes by updating 
+            the "Last Updated" date at the top of this page. Your continued use of the Service after changes 
+            constitutes acceptance of the new terms.
+        </p>
+
+        <!-- Section 10 -->
+        <h2 class="section-title">10. Governing Law</h2>
+        <p class="legal-text">
+            These Terms shall be governed by and construed in accordance with the laws of the United States, without 
+            regard to its conflict of law provisions.
+        </p>
+
+        <!-- Section 11 -->
+        <h2 class="section-title">11. Contact Information</h2>
+        <p class="legal-text">
+            If you have any questions about these Terms, please contact us at:
+            <br><br>
+            Email: <span class="highlight">walldraftsteam@gmail.com</span>
+        </p>
+
+        <!-- Final Note -->
+        <div style="margin-top: 4rem; padding-top: 2rem; border-top: 2px solid var(--border-color);">
+            <p class="legal-text" style="text-align: center; font-style: italic;">
+                By using WallDrafts, you acknowledge that you have read, understood, and agree to be bound by these 
+                Terms of Service. If you do not agree to these terms, please discontinue use of our Service.
+            </p>
+            <p class="legal-text" style="text-align: center; color: var(--text-secondary);">
+                Last Updated: January 1, 2026
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

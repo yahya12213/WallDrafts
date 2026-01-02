@@ -1,0 +1,59 @@
+<!-- templates/wallpapers/includes/wallpaper_grid.html -->
+<div class="wallpaper-grid" id="wallpaper-grid">
+    {% for wallpaper in wallpapers %}
+    <div class="wallpaper-card" data-wallpaper-id="{{ wallpaper.id }}" 
+         data-wallpaper-type="{{ wallpaper_type }}">
+        
+        <!-- Image with lazy loading -->
+        <a href="{% if wallpaper_type == 'mobile' %}{% url 'wallpapers:mobile_detail' wallpaper.id %}{% else %}{% url 'wallpapers:desktop_detail' wallpaper.id %}{% endif %}">
+            <img 
+                src="{{ wallpaper.thumbnail_url }}" 
+                alt="{{ wallpaper.title }}"
+                loading="lazy"
+                data-src="{{ wallpaper.image_url }}"
+                class="wallpaper-thumbnail"
+                width="{{ wallpaper.resolution_width }}"
+                height="{{ wallpaper.resolution_height }}"
+            >
+        </a>
+        
+        <!-- Overlay actions -->
+        <div class="wallpaper-overlay">
+            <div class="wallpaper-info">
+                <span class="resolution-badge">
+                    {{ wallpaper.resolution_width }}×{{ wallpaper.resolution_height }}
+                </span>
+                {% if wallpaper.quality_label %}
+                <span class="quality-badge">{{ wallpaper.quality_label }}</span>
+                {% endif %}
+            </div>
+            
+            <div class="wallpaper-actions">
+                <button class="like-btn" data-liked="false">
+                    <i class="far fa-heart"></i>
+                    <span class="count">{{ wallpaper.likes_count }}</span>
+                </button>
+                
+                <button class="favorite-btn" data-favorited="false">
+                    <i class="far fa-star"></i>
+                    <span class="count">{{ wallpaper.favorites_count }}</span>
+                </button>
+                
+                <button class="download-btn" data-download-url="{{ wallpaper.image_url }}">
+                    <i class="fas fa-download"></i>
+                    <span class="count">{{ wallpaper.downloads_count }}</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Trending badge -->
+        {% if wallpaper.is_trending %}
+        <div class="trending-badge">
+            <i class="fas fa-fire"></i>
+            Trending {{ wallpaper.trending_percentage }}%
+        </div>
+        {% endif %}
+        
+    </div>
+    {% endfor %}
+</div>

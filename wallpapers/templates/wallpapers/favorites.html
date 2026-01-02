@@ -1,0 +1,343 @@
+{% extends 'wallpapers/base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title|default:'My Favorites - WallDrafts' }}{% endblock %}
+{% block meta_description %}{{ meta_description|default:'Access your favorite wallpapers collection. All your saved HD backgrounds in one place for easy downloading.' }}{% endblock %}
+{% block meta_keywords %}{{ meta_keywords|default:'favorite wallpapers, saved backgrounds, wallpaper collection, my favorites, bookmarked wallpapers' }}{% endblock %}
+
+{% block extra_css %}
+<style>
+    /* Favorites Page Styles */
+    .favorites-container {
+        padding: 2rem 0;
+    }
+
+    .favorites-header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding: 2rem;
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+        border-radius: 15px;
+        color: white;
+    }
+
+    .favorites-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+
+    .favorites-subtitle {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .favorites-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        background: var(--surface-color);
+        border-radius: 10px;
+        box-shadow: var(--shadow);
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .filter-buttons {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .filter-btn {
+        padding: 0.5rem 1.5rem;
+        background: var(--surface-secondary);
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.9rem;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+    }
+
+    .sort-select {
+        padding: 0.5rem 1rem;
+        background: var(--surface-secondary);
+        border: 1px solid var(--border-color);
+        color: var(--text-color);
+        border-radius: 5px;
+        min-width: 200px;
+        font-family: inherit;
+    }
+
+    .favorites-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .favorite-card {
+        background: var(--surface-color);
+        border-radius: 10px;
+        overflow: hidden;
+        transition: var(--transition);
+        border: 1px solid var(--border-color);
+        box-shadow: var(--shadow);
+    }
+
+    .favorite-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--primary-color);
+    }
+
+    .favorite-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .favorite-content {
+        padding: 1.5rem;
+    }
+
+    .favorite-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        color: var(--text-color);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .favorite-meta {
+        display: flex;
+        justify-content: space-between;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    .favorite-stats {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+    }
+
+    .favorite-stats span {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+    }
+
+    .favorite-stats i {
+        color: var(--primary-color);
+    }
+
+    .favorite-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 0.5rem;
+    }
+
+    .action-btn {
+        padding: 0.5rem;
+        border: 1px solid var(--border-color);
+        background: var(--surface-secondary);
+        color: var(--text-color);
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        text-decoration: none;
+    }
+
+    .action-btn:hover {
+        transform: translateY(-2px);
+    }
+
+    .view-btn:hover {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+    }
+
+    .download-btn:hover {
+        background: var(--success-color);
+        color: white;
+        border-color: var(--success-color);
+    }
+
+    .remove-btn:hover {
+        background: var(--error-color);
+        color: white;
+        border-color: var(--error-color);
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: var(--surface-color);
+        border-radius: 10px;
+        border: 2px dashed var(--border-color);
+        display: none;
+    }
+
+    .empty-icon {
+        font-size: 3rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+    }
+
+    .empty-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+        color: var(--text-color);
+    }
+
+    .empty-text {
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .browse-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.8rem 2rem;
+        background: var(--primary-color);
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .browse-btn:hover {
+        background: var(--primary-dark);
+        transform: translateY(-2px);
+    }
+
+    .loading-spinner {
+        text-align: center;
+        padding: 3rem;
+        font-size: 1.5rem;
+        color: var(--primary-color);
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+        .favorites-actions {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        
+        .filter-buttons {
+            justify-content: center;
+        }
+        
+        .favorites-grid {
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        }
+        
+        .favorite-actions {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .favorites-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .favorites-title {
+            font-size: 2rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container favorites-container">
+    <!-- Header -->
+    <div class="favorites-header">
+        <h1 class="favorites-title">My Favorites</h1>
+        <p class="favorites-subtitle">All your saved wallpapers in one place</p>
+    </div>
+
+    <!-- Filters and Sort -->
+    <div class="favorites-actions">
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="desktop">Desktop</button>
+            <button class="filter-btn" data-filter="trending">Trending</button>
+        </div>
+        
+        <div class="sort-control">
+            <select class="sort-select" id="sortSelect">
+                <option value="recent">Recently Added</option>
+                <option value="popular">Most Popular</option>
+                <option value="downloads">Most Downloads</option>
+                <option value="resolution">Highest Resolution</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner">
+        <i class="fas fa-spinner fa-spin"></i>
+        Loading your favorites...
+    </div>
+
+    <!-- Favorites Grid -->
+    <div id="favoritesGrid" class="favorites-grid">
+        <!-- Will be populated by JavaScript -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="empty-state">
+        <div class="empty-icon">
+            <i class="far fa-star"></i>
+        </div>
+        <h3 class="empty-title">No favorites yet</h3>
+        <p class="empty-text">
+            Start exploring wallpapers and click the star icon to add them to your favorites.
+            They'll appear here for easy access!
+        </p>
+        <a href="{% url 'wallpapers:home' %}" class="browse-btn">
+            <i class="fas fa-search"></i>
+            Browse Wallpapers
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Favorites will be loaded automatically by the FavoritesManager class
+// which is initialized in main.js
+</script>
+{% endblock %}

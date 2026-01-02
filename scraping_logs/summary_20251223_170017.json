@@ -1,0 +1,143 @@
+{
+  "date": "2025-12-23 17:00:17",
+  "total_time_seconds": 14107.973863363266,
+  "categories_scraped": [
+    "Black/Dark",
+    "Cars",
+    "Celebrations",
+    "Cute",
+    "Fantasy",
+    "Flowers",
+    "Food",
+    "Games",
+    "Gradients",
+    "CGI",
+    "Lifestyle",
+    "Love",
+    "Military",
+    "Minimal",
+    "Movies",
+    "Music",
+    "Nature",
+    "People",
+    "Photography",
+    "Quotes",
+    "Sci-Fi",
+    "Space",
+    "Sports",
+    "Technology",
+    "World"
+  ],
+  "max_pages_per_category": 16,
+  "max_items_per_category": 500,
+  "results": {
+    "total": 9149,
+    "success": 9149,
+    "errors": 0
+  },
+  "success_rate_percentage": 100.0,
+  "final_total": 10753,
+  "added_this_session": 9149,
+  "category_details": {
+    "Black/Dark": {
+      "id": 8,
+      "final_count": 384
+    },
+    "Cars": {
+      "id": 9,
+      "final_count": 384
+    },
+    "Celebrations": {
+      "id": 10,
+      "final_count": 380
+    },
+    "Cute": {
+      "id": 11,
+      "final_count": 384
+    },
+    "Fantasy": {
+      "id": 12,
+      "final_count": 361
+    },
+    "Flowers": {
+      "id": 13,
+      "final_count": 365
+    },
+    "Food": {
+      "id": 14,
+      "final_count": 256
+    },
+    "Games": {
+      "id": 15,
+      "final_count": 384
+    },
+    "Gradients": {
+      "id": 16,
+      "final_count": 362
+    },
+    "CGI": {
+      "id": 17,
+      "final_count": 379
+    },
+    "Lifestyle": {
+      "id": 18,
+      "final_count": 374
+    },
+    "Love": {
+      "id": 19,
+      "final_count": 364
+    },
+    "Military": {
+      "id": 20,
+      "final_count": 224
+    },
+    "Minimal": {
+      "id": 21,
+      "final_count": 370
+    },
+    "Movies": {
+      "id": 22,
+      "final_count": 384
+    },
+    "Music": {
+      "id": 23,
+      "final_count": 384
+    },
+    "Nature": {
+      "id": 3,
+      "final_count": 384
+    },
+    "People": {
+      "id": 24,
+      "final_count": 384
+    },
+    "Photography": {
+      "id": 25,
+      "final_count": 384
+    },
+    "Quotes": {
+      "id": 26,
+      "final_count": 371
+    },
+    "Sci-Fi": {
+      "id": 27,
+      "final_count": 366
+    },
+    "Space": {
+      "id": 28,
+      "final_count": 369
+    },
+    "Sports": {
+      "id": 29,
+      "final_count": 384
+    },
+    "Technology": {
+      "id": 30,
+      "final_count": 384
+    },
+    "World": {
+      "id": 31,
+      "final_count": 384
+    }
+  }
+}

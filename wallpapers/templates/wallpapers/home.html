@@ -15,6 +15,15 @@
 {% block twitter_description %}Download beautiful HD wallpapers for your desktop. Free and no registration required!{% endblock %}
 
 {% block breadcrumb_schema %}
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-4TGJJ5X73Y"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-4TGJJ5X73Y');
+</script>
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -24,7 +33,7 @@
             "@type": "ListItem",
             "position": 1,
             "name": "Home",
-            "item": "https://walldrafts.com/"
+            "item": "https://www.walldrafts.com"
         }
     ]
 }
@@ -522,7 +531,7 @@
 <section class="hero-section" aria-labelledby="main-heading">
     <div class="hero-background">
         {% if hero_wallpaper %}
-        <img src="{{ hero_wallpaper.image_url }}" alt="{{ hero_wallpaper.title }} - HD Desktop Wallpaper" 
+        <img src="{{ hero_wallpaper.image_url }}" alt="{{ hero_wallpaper.title }} - HD Desktop Wallpaper"
              class="hero-background-img" loading="eager" width="1920" height="1080">
         {% endif %}
     </div>
@@ -535,9 +544,9 @@
                 Curated collection, updated daily. No registration required.
             </p>
 
-    
-            
-            
+
+
+
         </div>
     </div>
 </section>
@@ -559,7 +568,7 @@
             {% for wallpaper in recent_wallpapers %}
             <article class="wallpaper-card" data-wallpaper-id="{{ wallpaper.id }}" aria-label="{{ wallpaper.title }}">
                 <a href="{% url 'wallpapers:wallpaper_detail' wallpaper.id %}" aria-label="View {{ wallpaper.title }} wallpaper details">
-                    <img src="{{ wallpaper.thumbnail_url }}" alt="{{ wallpaper.title }} - {{ wallpaper.resolution_width }}x{{ wallpaper.resolution_height }} HD Wallpaper" 
+                    <img src="{{ wallpaper.thumbnail_url }}" alt="{{ wallpaper.title }} - {{ wallpaper.resolution_width }}x{{ wallpaper.resolution_height }} HD Wallpaper"
                          class="wallpaper-image" loading="lazy" width="300" height="200">
                 </a>
 
@@ -604,7 +613,7 @@
                 {% for wallpaper in trending_wallpapers %}
                 <article class="wallpaper-card" data-wallpaper-id="{{ wallpaper.id }}" aria-label="{{ wallpaper.title }}">
                     <a href="{% url 'wallpapers:wallpaper_detail' wallpaper.id %}" aria-label="View {{ wallpaper.title }} wallpaper details">
-                        <img src="{{ wallpaper.thumbnail_url }}" alt="{{ wallpaper.title }} - Popular Wallpaper" 
+                        <img src="{{ wallpaper.thumbnail_url }}" alt="{{ wallpaper.title }} - Popular Wallpaper"
                              class="wallpaper-image" loading="lazy" width="300" height="200">
                     </a>
 
@@ -648,10 +657,10 @@
         <div class="categories-scroll-container">
             <div class="categories-scroll-wrapper">
                 {% for category in categories|slice:":10" %}
-                <a href="{% url 'wallpapers:category_detail' category.slug %}" class="category-card-scroll" 
+                <a href="{% url 'wallpapers:category_detail' category.slug %}" class="category-card-scroll"
                    aria-label="Browse {{ category.name }} wallpapers">
                     {% if category.cover_image_url %}
-                    <img src="{{ category.cover_image_url }}" alt="{{ category.name }} wallpapers collection" 
+                    <img src="{{ category.cover_image_url }}" alt="{{ category.name }} wallpapers collection"
                          loading="lazy" width="240" height="300">
                     {% else %}
                     <div class="category-card-fallback">
@@ -704,23 +713,23 @@
     document.addEventListener('DOMContentLoaded', function() {
         // Category scroll functionality
         const scrollWrapper = document.querySelector('.categories-scroll-wrapper');
-        
+
         if (scrollWrapper) {
             // Show/hide scroll buttons based on scroll position
             function updateScrollButtons() {
                 const scrollLeftPos = scrollWrapper.scrollLeft;
                 const maxScrollLeft = scrollWrapper.scrollWidth - scrollWrapper.clientWidth;
-                
+
                 // You can add scroll buttons if needed
             }
-            
+
             scrollWrapper.addEventListener('scroll', updateScrollButtons);
             updateScrollButtons();
         }
-        
+
         // Lazy loading for images
         const lazyImages = [].slice.call(document.querySelectorAll('img[loading="lazy"]'));
-        
+
         if ('IntersectionObserver' in window) {
             const imageObserver = new IntersectionObserver(function(entries, observer) {
                 entries.forEach(function(entry) {
@@ -731,7 +740,7 @@
                     }
                 });
             });
-            
+
             lazyImages.forEach(function(img) {
                 imageObserver.observe(img);
             });
